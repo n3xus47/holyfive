@@ -1,0 +1,21 @@
+{
+  "name": "Holy Five Esports",
+  "short_name": "Holy Five",
+  "description": "Oficjalna strona drużyny e-sportowej Holy Five",
+  "start_url": "/pages/views/holyfive/holyfive.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff3131",
+  "icons": [
+    {
+      "src": "hflogo5.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "logohftop.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+} 

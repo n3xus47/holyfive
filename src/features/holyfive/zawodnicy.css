@@ -1,0 +1,868 @@
+/* Podstawowe style */
+body {
+    font-family: var(--font-sans, "Supreme-Variable", sans-serif);
+    margin: 0;
+    padding: 0;
+    /* background-color: #121212; Usunięto kolor tła */
+    color: #e0e0e0;
+    overflow-x: hidden;
+    height: 400vh; /* Zwiększam wysokość strony, aby pomieścić dłuższą animację sekwencyjną */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    /* Dodano style dla tła obrazkowego */
+    background-image: url('/pages/views/holyfive/tlo3.webp');
+    background-position: center center; /* Centrowanie */
+    background-repeat: no-repeat; /* Bez powtarzania */
+    background-size: cover; /* Pokrycie całego obszaru */
+    background-attachment: fixed; /* Stałe tło przy przewijaniu */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(18, 18, 18, 0.97), rgba(18, 18, 18, 0.97)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%23FF3131' stroke-width='1.5' stroke-opacity='0.1'%3E%3Cpath d='M300 150 L150 300 L300 450 L450 300 Z'/%3E%3Cpath d='M300 50 L50 300 L300 550 L550 300 Z'/%3E%3Cpath d='M100 100 L500 100 L500 500 L100 500 Z'/%3E%3C/g%3E%3Cg fill='none' stroke='%233E3636' stroke-width='1.5' stroke-opacity='0.1'%3E%3Cpath d='M520 140 L140 140 L140 460 L520 460 Z'/%3E%3Cpath d='M380 220 L220 220 L220 380 L380 380 Z'/%3E%3C/g%3E%3Cg fill='none' stroke='%23e0e0e0' stroke-width='1' stroke-opacity='0.05'%3E%3Cpath d='M0 0 L600 600 M600 0 L0 600 M300 0 L300 600 M0 300 L600 300'/%3E%3C/g%3E%3Cg fill='%23ff3131' fill-opacity='0.05'%3E%3Ccircle cx='100' cy='100' r='5'/%3E%3Ccircle cx='500' cy='100' r='5'/%3E%3Ccircle cx='100' cy='500' r='5'/%3E%3Ccircle cx='500' cy='500' r='5'/%3E%3Ccircle cx='300' cy='300' r='8'/%3E%3C/g%3E%3C/svg%3E"),
+        repeating-linear-gradient(45deg, rgba(255, 49, 49, 0.05) 0px, rgba(255, 49, 49, 0.05) 20px, transparent 20px, transparent 40px),
+        repeating-linear-gradient(135deg, rgba(62, 54, 54, 0.05) 0px, rgba(62, 54, 54, 0.05) 20px, transparent 20px, transparent 40px);
+    z-index: -1;
+}
+
+/* Kontener dla głównego ekranu */
+.content {
+    position: relative;
+    min-height: 400vh; /* Dostosowanie wysokości */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Dodaję, aby footer znalazł się na dole */
+    background-color: transparent;
+}
+
+/* Dodaję styl dla elementu spacer */
+.spacer {
+    flex-grow: 1; /* Element będzie się rozciągał, aby wypełnić dostępną przestrzeń */
+    min-height: 250vh; /* Zwiększam wysokość dla sekwencyjnej animacji */
+}
+
+/* Element odstępu między headerem a main */
+.header-main-spacing {
+    height: 80px; /* Zwiększam wysokość odstępu */
+    width: 100%;
+    background-color: transparent; /* Ustawiam jako przezroczysty */
+}
+
+main {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: var(--space-3, 24px);
+    height: 100%;
+    height: calc(100vh - 128px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 132px;
+    z-index: 25;
+    margin-bottom: var(--space-20, 160px);
+    transition: transform var(--motion-duration-slow) var(--motion-ease-enter);
+}
+
+/* Tytuł strony (wypełniany JS) – fluid type */
+#holyFiveTitle {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--text-hero);
+    font-weight: 900;
+    color: var(--color-red);
+    font-family: var(--font-accent);
+    text-transform: uppercase;
+    opacity: 0;
+    z-index: 9999;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: var(--tracking-wide);
+    pointer-events: none;
+    transition: opacity var(--motion-duration-reveal-long) var(--motion-ease-in-out);
+    overflow: visible;
+    width: 100%;
+    text-align: center;
+}
+
+main > h1.section-title {
+    margin: 0 0 var(--space-6, 48px);
+}
+
+.section-title {
+    text-align: center;
+    font-size: var(--text-hero);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-wide);
+    margin: var(--space-15, 120px) 0 var(--space-6, 48px);
+    color: white;
+    font-family: var(--font-accent);
+    text-transform: uppercase;
+    position: relative;
+    white-space: nowrap;
+    transition: opacity var(--motion-duration-normal) var(--motion-ease-enter);
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+/* Kontener dla karty zawodnika */
+.player-container {
+    position: absolute;
+    width: 480px;
+    height: 620px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity var(--motion-duration-slow) var(--motion-ease-enter), transform var(--motion-duration-slow) var(--motion-ease-enter);
+    transform-origin: center center;
+    will-change: transform, opacity; /* Dodaję wsparcie dla optymalizacji animacji */
+    top: 60px; /* Dodaję właściwość top, aby karty zaczynały się niżej */
+}
+
+/* Style z-index dla kart zawodników */
+#playerCard {
+    z-index: 20; /* Najwyższy */
+}
+
+/* Specyficzne style dla karty nr 2 */
+#playerCard2 {
+    z-index: 19;
+}
+
+/* Specyficzne styles dla karty nr 3 */
+#playerCard3 {
+    z-index: 18;
+}
+
+/* Specyficzne styles dla karty nr 4 */
+#playerCard4 {
+    z-index: 17;
+}
+
+/* Specyficzne styles dla karty nr 5 */
+#playerCard5 {
+    z-index: 16; /* Najniższy */
+}
+
+/* Style dla interakcji z kartami - hover */
+#playerCard .player-card,
+#playerCard2 .player-card,
+#playerCard3 .player-card,
+#playerCard4 .player-card,
+#playerCard5 .player-card {
+    cursor: pointer;
+    transition: transform var(--motion-duration-normal) var(--motion-ease-enter), box-shadow var(--motion-duration-normal) var(--motion-ease-enter);
+    position: relative;
+    z-index: 1; /* Upewniamy się, że elementy wewnątrz kontenera mają wyższy z-index */
+}
+
+#playerCard .player-card:hover,
+#playerCard2 .player-card:hover,
+#playerCard3 .player-card:hover,
+#playerCard4 .player-card:hover,
+#playerCard5 .player-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    z-index: 30; /* Zwiększam z-index podczas hover z 20 na 30, żeby karta była na wierzchu */
+}
+
+#playerCard .player-card:hover .player-image img,
+#playerCard2 .player-card:hover .player-image img,
+#playerCard3 .player-card:hover .player-image img,
+#playerCard4 .player-card:hover .player-image img,
+#playerCard5 .player-card:hover .player-image img {
+    transform: scale(1.05);
+}
+
+/* Karta zawodnika */
+.player-card {
+    width: 480px;
+    background-color: #20242a;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform var(--motion-duration-normal) var(--motion-ease-enter), box-shadow var(--motion-duration-normal) var(--motion-ease-enter);
+    position: relative;
+    transform-style: preserve-3d; /* Dodaję wsparcie dla efektu 3D */
+    perspective: 1000px; /* Dodaję perspektywę dla efektu 3D */
+}
+
+.player-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.player-card::after {
+    background: linear-gradient(
+        transparent,
+        #ff3131, /* Zmieniono kolor na czerwony */
+        transparent
+    );
+    width: 3px; /* Zwiększono grubość z 1px */
+    height: 80px;
+    position: absolute;
+    left: -1px;
+    top: 65%;
+    content: "";
+    opacity: 0;
+    transition: top var(--motion-duration-reveal) var(--motion-ease-enter), opacity var(--motion-duration-reveal) var(--motion-ease-enter);
+}
+
+.player-card:hover::after {
+    top: 25%;
+    opacity: 1;
+}
+
+.player-card::before {
+    background: linear-gradient(
+        transparent,
+        #ff3131,
+        transparent
+    );
+    width: 3px;
+    height: 80px;
+    position: absolute;
+    right: -1px; /* Zmieniono na prawą stronę */
+    top: 25%; /* Początkowa pozycja */
+    content: "";
+    opacity: 0;
+    transition: top var(--motion-duration-reveal) var(--motion-ease-enter), opacity var(--motion-duration-reveal) var(--motion-ease-enter);
+}
+
+.player-card:hover::before {
+    top: 65%; /* Końcowa pozycja */
+    opacity: 1;
+}
+
+.shiny-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px; /* Zwiększam wysokość paska z 8px na 10px */
+    /* Kolory w pasku gradientowym: #ff3131 (czerwony), #ffffff (biały) */
+    background: linear-gradient(90deg, #ff3131, #ffffff, #ff3131);
+    background-size: 200% 100%;
+    animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Wyrównanie wysokości .card-inner dla wszystkich kart */
+.card-inner {
+    padding: 25px;
+    box-sizing: border-box;
+    min-height: 510px; /* Zwiększono proporcjonalnie z 480px */
+    height: 510px; /* Zwiększono proporcjonalnie z 480px */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* Specyficzne style dla card-inner w kartach 3 i 4 */
+#playerCard3 .card-inner,
+#playerCard4 .card-inner,
+#playerCard .card-inner,
+#playerCard2 .card-inner,
+#playerCard5 .card-inner {
+    padding: 25px;
+    min-height: 510px; /* Zwiększono proporcjonalnie z 480px */
+    height: 510px; /* Zwiększono proporcjonalnie z 480px */
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* Dopasowanie elementów wewnątrz .card-inner */
+.player-image {
+    height: 375px; /* Zwiększono proporcjonalnie z 350px */
+    overflow: hidden;
+    border-radius: var(--radius-md); /* Zwiększam zaokrąglenie z 8px na 10px */
+    margin-bottom: 25px; /* Zwiększam odstęp z 20px na 25px */
+    flex-shrink: 0; /* Zapobiega skurczeniu przy zmianie rozmiaru */
+}
+
+.player-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--motion-duration-slow) var(--motion-ease-enter);
+}
+
+.player-card:hover .player-image img {
+    transform: scale(1.05);
+}
+
+.player-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.player-text {
+    flex: 1;
+    padding-right: 10px;
+    min-width: 0;
+}
+
+#playerCard .player-info,
+#playerCard2 .player-info,
+#playerCard3 .player-info,
+#playerCard4 .player-info,
+#playerCard5 .player-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#playerCard .player-text,
+#playerCard2 .player-text,
+#playerCard3 .player-text,
+#playerCard4 .player-text,
+#playerCard5 .player-text {
+    flex: 1;
+    padding-right: 10px;
+    min-width: 0;
+}
+
+.player-text h2 {
+    margin: 0 0 12px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Specyficzne style dla h2 we wszystkich kartach */
+#playerCard .player-text h2,
+#playerCard2 .player-text h2,
+#playerCard3 .player-text h2,
+#playerCard4 .player-text h2,
+#playerCard5 .player-text h2 {
+    font-size: 1.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#playerCard .social-link,
+#playerCard3 .social-link,
+#playerCard4 .social-link,
+#playerCard5 .social-link {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+#playerCard .social-link:hover,
+#playerCard3 .social-link:hover,
+#playerCard4 .social-link:hover,
+#playerCard5 .social-link:hover {
+    color: #dd2a7b; /* Czerwony kolor z marki */
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color var(--motion-duration-normal) var(--motion-ease-enter);
+    font-family: var(--font-display);
+}
+
+.social-link:hover {
+    color: #dd2a7b;
+}
+
+.social-link i {
+    margin-right: 5px;
+}
+
+.social-link.faceit-link {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    color: #ffffff;
+    line-height: 1;
+    margin-top: -10px;
+    transition: color var(--motion-duration-normal) var(--motion-ease-enter), transform var(--motion-duration-normal) var(--motion-ease-enter), text-shadow var(--motion-duration-normal) var(--motion-ease-enter);
+}
+
+.social-link.faceit-link:hover {
+    color: #ff6a1f;
+    transform: scale(1.08);
+    text-shadow: 0 0 8px rgba(255, 85, 0, 0.75);
+}
+
+.faceit-icon {
+    width: 24px;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+.faceit-label {
+    display: block;
+    white-space: nowrap;
+    color: currentColor;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-left: 2px;
+}
+
+#playerCard .social-link.faceit-link:hover,
+#playerCard2 .social-link.faceit-link:hover,
+#playerCard3 .social-link.faceit-link:hover,
+#playerCard4 .social-link.faceit-link:hover,
+#playerCard5 .social-link.faceit-link:hover {
+    color: #ff6a1f;
+}
+
+.logo-small {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-left: 10px;
+    align-self: flex-start;
+    filter: brightness(0) invert(1);
+}
+
+#playerCard .logo-small,
+#playerCard2 .logo-small,
+#playerCard3 .logo-small,
+#playerCard4 .logo-small,
+#playerCard5 .logo-small {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-left: 10px;
+    align-self: flex-start;
+    filter: brightness(0) invert(1);
+}
+
+.player-stats {
+    background-color: #181c22;
+    padding: 25px; /* Zwiększam padding z 20px na 25px */
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px; /* Zwiększam odstęp z 10px na 12px */
+}
+
+.stat-item:last-child {
+    margin-bottom: 0;
+}
+
+.stat-label {
+    font-weight: 600;
+    color: #aaa;
+    font-size: 1.2rem; /* Zwiększam rozmiar czcionki z 1.1rem na 1.2rem */
+    font-family: var(--font-sans, "Supreme-Variable", sans-serif);
+}
+
+.stat-value {
+    font-weight: 700;
+    color: #ff3131; /* Zmieniam kolor na czerwony z marki */
+    font-size: 1.3rem; /* Zwiększam rozmiar czcionki z 1.2rem na 1.3rem */
+    font-family: var(--font-sans, "Supreme-Variable", sans-serif);
+}
+
+/* Style dla przycisków akcji */
+.action-button {
+    padding: 12px 20px;
+    background-color: #ff3131;
+    color: white;
+    border: none;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-accent);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all var(--motion-duration-normal) var(--motion-ease-enter);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Styl dla kontenera przycisków */
+#actionButtons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 80px auto 0; /* Zwiększam margines górny */
+    opacity: 0;
+    transition: opacity var(--motion-duration-reveal-long) var(--motion-ease-in-out);
+    z-index: 40;
+    width: 100%;
+    max-width: 100%;
+    left: auto;
+    transform: none;
+}
+
+.action-button:hover {
+    background-color: #e01f1f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.action-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal styles dla okienek informacyjnych */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #20242a;
+    padding: 30px;
+    border-radius: var(--radius-md);
+    width: 80%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    animation: modalAppear 0.4s ease;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color var(--motion-duration-normal) var(--motion-ease-enter);
+}
+
+.close-modal:hover {
+    color: #ff3131;
+}
+
+.modal-title {
+    font-family: var(--font-accent);
+    font-size: 2.2rem;
+    color: #ff3131;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #3E3636;
+    padding-bottom: 10px;
+}
+
+.modal-body {
+    font-family: var(--font-sans, "Supreme-Variable", sans-serif);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.reserve-player {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.reserve-player:last-child {
+    margin-bottom: 0;
+}
+
+.reserve-avatar {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.reserve-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reserve-content h3 {
+    margin: 0 0 6px 0;
+}
+
+.reserve-stats {
+    display: grid;
+    gap: 3px;
+    margin-bottom: 8px;
+    font-size: 0.98rem;
+}
+
+.reserve-stats strong {
+    color: #ff3131;
+}
+
+.reserve-faceit-link {
+    margin-top: 0;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive styles dla przycisków i modali */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 7rem;
+        margin: 80px 0 40px; /* Dostosowanie marginesów dla mniejszych ekranów */
+    }
+    
+    .holy-five-title {
+        font-size: 6rem;
+    }
+    
+    main {
+        height: calc(100vh - 100px); /* Mniejsza wysokość headera na urządzeniach mobilnych */
+        top: 100px; /* Dostosowuję top do wysokości headera na mobilnych */
+        padding: 15px;
+    }
+    
+    .player-card {
+        width: 410px; /* Zwiększono z 380px */
+    }
+    
+    .player-image {
+        height: 300px; /* Zwiększono proporcjonalnie z 280px */
+    }
+    
+    .player-container {
+        width: 410px; /* Zwiększono z 380px */
+        height: 550px; /* Zwiększono proporcjonalnie z 510px */
+    }
+    
+    .card-inner {
+        min-height: 440px; /* Zwiększono proporcjonalnie z 410px */
+        height: 440px; /* Zwiększono proporcjonalnie z 410px */
+    }
+    
+    #playerCard3 .card-inner,
+    #playerCard4 .card-inner {
+        min-height: 440px; /* Zwiększono proporcjonalnie z 410px */
+        height: 440px; /* Zwiększono proporcjonalnie z 410px */
+    }
+    
+    .action-button {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+    
+    #actionButtons {
+        margin-top: 40px;
+    }
+    
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .modal-title {
+        font-size: 1.8rem;
+    }
+    
+    .corner-element {
+        width: 120px !important;
+        height: 60px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 15px 10px;
+        height: calc(100vh - 80px); /* Jeszcze mniejsza wysokość headera na bardzo małych urządzeniach */
+        top: 80px; /* Dostosowuję top do wysokości headera na bardzo małych urządzeniach */
+    }
+    
+    .section-title {
+        font-size: 5rem;
+        margin: 60px 0 30px; /* Dostosowanie marginesów dla najmniejszych ekranów */
+    }
+    
+    .holy-five-title {
+        font-size: 4rem;
+        letter-spacing: 2px;
+    }
+    
+    .player-card {
+        width: 340px; /* Zwiększono z 320px */
+    }
+    
+    .player-image {
+        height: 235px; /* Zwiększono proporcjonalnie z 220px */
+    }
+    
+    .player-text h2 {
+        font-size: 1.2rem; /* Jeszcze mniejsza czcionka na telefonach */
+    }
+    
+    .player-container {
+        width: 340px; /* Zwiększono z 320px */
+        height: 480px; /* Zwiększono proporcjonalnie z 450px */
+    }
+    
+    .card-inner {
+        min-height: 370px; /* Zwiększono proporcjonalnie z 350px */
+        height: 370px; /* Zwiększono proporcjonalnie z 350px */
+    }
+    
+    #playerCard3 .card-inner,
+    #playerCard4 .card-inner {
+        min-height: 370px; /* Zwiększono proporcjonalnie z 350px */
+        height: 370px; /* Zwiększono proporcjonalnie z 350px */
+    }
+    
+    .action-button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    #actionButtons {
+        margin-top: 30px;
+        gap: 10px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .modal-title {
+        font-size: 1.5rem;
+    }
+    
+    .corner-element {
+        width: 80px !important;
+        height: 40px !important;
+    }
+}
+
+#playerCard, #playerCard2, #playerCard3, #playerCard4, #playerCard5 {
+    pointer-events: auto;
+}
+
+/* Styl dla dużego napisu HOLY FIVE */
+.holy-five-title {
+    position: relative;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9rem;
+    font-weight: 900;
+    color: #ff3131;
+    font-family: var(--font-accent);
+    text-transform: uppercase;
+    opacity: 0;
+    z-index: 30;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    transition: opacity var(--motion-duration-reveal-long) var(--motion-ease-enter), transform var(--motion-duration-reveal-long) var(--motion-ease-enter);
+    white-space: nowrap;
+    letter-spacing: 4px;
+    pointer-events: none;
+    margin: 100px 0 50px; /* Zwiększam górny margines */
+    width: 100%;
+    text-align: center;
+}
+
+.holy-five-title.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    animation: titlePulse 2s infinite alternate;
+}
+
+@keyframes titlePulse {
+    0% {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        transform: translateX(-50%) scale(1);
+    }
+    100% {
+        text-shadow: 0 0 15px rgba(255, 49, 49, 0.8), 0 0 30px rgba(255, 49, 49, 0.4);
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+/* Animacje */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Poprawka klikalności linków social media --- */
+.player-card .social-link,
+.player-card .social-link i {
+    pointer-events: auto !important; /* Wymuś klikalność */
+    position: relative; /* Kontekst dla z-index */
+    z-index: 100 !important; /* Wysoki priorytet warstwy */
+}
+
+/* Style dla elementów narożnych */
+.corner-element {
+    transition: opacity var(--motion-duration-normal) var(--motion-ease-enter);
+}
+
+.corner-element.hidden {
+    opacity: 0;
+}
