@@ -357,7 +357,8 @@ function applyMaterialAwp(mesh, textureLoader, baseUrl, maxAnisotropy) {
 
   var uvOpts = { repeatX: 1, repeatY: 1, offsetX: 0, offsetY: 0, anisotropy: maxAnisotropy };
 
-  var normalPromise = loadTexture(textureLoader, baseUrl + 'normalawp.webp', uvOpts).catch(function () { return null; });
+  // Keep the model normal map; no separate AWP normal texture is shipped.
+  var normalPromise = Promise.resolve(null);
   Promise.all([
     loadTexture(textureLoader, baseUrl + '000awp.webp', Object.assign({ colorSpace: 'srgb' }, uvOpts)),
     normalPromise,
