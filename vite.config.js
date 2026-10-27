@@ -1,12 +1,14 @@
 import path from "node:path";
-import { cpSync } from "node:fs";
+import { cpSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(projectRoot, "src");
+const pagesBase = process.env.PAGES_BASE || "/";
 
 export default defineConfig({
+  base: pagesBase,
   plugins: [{
     name: "holyfive-static-assets",
     closeBundle() {
@@ -16,6 +18,23 @@ export default defineConfig({
         recursive: true,
         filter: (file) => !["holyfive.html", "akademia.html", "zawodnicy.html"].includes(path.basename(file)),
       });
+      // Runtime URLs in copied partials and scripts also need the repository prefix.
+      if (pagesBase !== "/") {
+        function rewrite(directory) {
+          for (const entry of readdirSync(directory, { withFileTypes: true })) {
+            const file = path.join(directory, entry.name);
+            if (entry.isDirectory()) rewrite(file);
+            else if (/\.(html|css|js|webmanifest)$/.test(entry.name)) {
+              const content = readFileSync(file, "utf8").replace(
+                /(["'`(=])\/(pages|features|shared)\//g,
+                `$1${pagesBase}$2/`,
+              );
+              writeFileSync(file, content);
+            }
+          }
+        }
+        rewrite(path.resolve(projectRoot, "dist"));
+      }
     },
   }],
   root,
