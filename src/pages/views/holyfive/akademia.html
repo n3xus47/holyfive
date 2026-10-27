@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Akademia Holy Five — taktyki, mapy i pozycje CS2. Kompendium zagrań i ustawień od ekipy 221.">
+    <meta name="description" content="Mapy, pozycje i taktyki CS2 do naszych wspólnych meczów.">
     <link rel="stylesheet" href="/features/holyfive/holyfive.css">
     <link rel="stylesheet" href="/features/holyfive/akademia.css">
     <link rel="stylesheet" href="/shared/css/view-transition.css">
+    <link rel="stylesheet" href="/shared/css/header.css">
     <link rel="icon" href="holyfive.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,32 +17,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
-    <title>Akademia | Holy Five — taktyki i mapy CS2</title>    
-    <script defer src="/shared/scripts/refresh-redirect-to-pages-index.js"></script>
-    <script src="/shared/scripts/site-view-transition.js" defer></script>
+    <title>Akademia | Holy Five — taktyki i mapy CS2</title>
+    <script type="module" defer src="/shared/scripts/refresh-redirect-to-pages-index.js"></script>
+    <script type="module" src="/shared/scripts/site-view-transition.js" defer></script>
 </head>
 <body>
-    
+
     <div class="loading-container enter-transition" id="loadingScreen">
         <div class="loading-logo">
             <img src="hflogo5.webp" alt="LogoHF">
         </div>
         <div class="loading-label"><span class="blood-text">LOADING</span><span class="blood-dot">.</span><span class="blood-dot">.</span><span class="blood-dot">.</span></div>
     </div>
-    
+
         <div class="content hidden" id="pageContent">
+            <div data-include="header"></div>
             <div class="academy-banner">
                 <canvas id="res-canvas" aria-hidden="true"></canvas>
-                <div data-include="header" class="academy-header-slot"></div>
+
                 <div class="academy-banner-content">
                     <div id="akademiaTitle" class="academy-title" aria-hidden="true"></div>
                     <div class="academy-subtitle academy-subtitle--lead shimmering-text">
-                        MATERIAŁY TRENINGOWE HOLY FIVE
+                        MAPY I ZASADY WSPÓLNEJ GRY
                     </div>
                 </div>
                 <div class="blood-drip"></div>
             </div>
-        
+
         <style>
             @keyframes fadeIn {
                 0% {
@@ -51,18 +53,18 @@
                     opacity: 1;
                 }
             }
-            
+
             @keyframes pulseEffect {
                 0% { transform: scale(1); color: #e0e0e0; }
                 50% { transform: scale(1.01); color: #ffffff; }
                 100% { transform: scale(1); color: #e0e0e0; }
             }
-            
+
             @keyframes shimmer {
                 0% { background-position: -200% 0; }
                 100% { background-position: 200% 0; }
             }
-            
+
             .shimmering-text {
                 color: #e8e8e8;
                 text-shadow: 0 0 1px #fff;
@@ -76,9 +78,9 @@
                 color: rgba(255, 255, 255, 0.85);
                 animation: shimmer 5s infinite linear;
             }
-            
+
         </style>
-        
+
         <main>
             <!-- Nowy poziomy układ map -->
             <div class="maps-horizontal-layout">
@@ -90,7 +92,7 @@
                         <div class="map-panel-image"></div>
                     </div>
                 </div>
-                
+
                 <div class="map-panel" data-map="nuke" data-index="2">
                     <div class="blood-corner"></div>
                     <div class="map-panel-content">
@@ -99,7 +101,7 @@
                         <div class="map-panel-image"></div>
                     </div>
                 </div>
-                
+
                 <div class="map-panel" data-map="ancient" data-index="3">
                     <div class="blood-corner"></div>
                     <div class="map-panel-content">
@@ -108,7 +110,7 @@
                         <div class="map-panel-image"></div>
                     </div>
                 </div>
-                
+
                 <div class="map-panel" data-map="dust" data-index="4">
                     <div class="blood-corner"></div>
                     <div class="map-panel-content">
@@ -118,7 +120,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Pełnoekranowy overlay: tylko obraz wybranej karty + napisy (bez modala i paneli) -->
             <div id="rulesFullscreenOverlay" class="rules-fullscreen-overlay" aria-hidden="true">
                 <div class="rules-fullscreen-images">
@@ -140,7 +142,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="page-content hidden-containers">
                 <!-- Zachowujemy oryginalne kontenery map, ale ukryte -->
                 <section class="map-section">
@@ -164,39 +166,37 @@
                 <section class="map-section">
                     <h2 class="section-title hidden-title">Nuke <i class="fas fa-chevron-down toggle-map collapsed" id="nukeToggle" aria-label="Rozwiń/zwiń mapę"></i></h2>
                     <div class="map-container collapsed" id="nukeContainer">
-                        <p class="map-info">Taktyki na mapie Nuke zostaną wkrótce dodane.</p>
+                        <p class="map-info">Taktyki na Nuke dodamy później.</p>
                     </div>
                 </section>
 
                 <section class="map-section">
                     <h2 class="section-title hidden-title">Ancient <i class="fas fa-chevron-down toggle-map collapsed" id="ancientToggle" aria-label="Rozwiń/zwiń mapę"></i></h2>
                     <div class="map-container collapsed" id="ancientContainer">
-                        <p class="map-info">Taktyki na mapie Ancient zostaną wkrótce dodane.</p>
+                        <p class="map-info">Taktyki na Ancient dodamy później.</p>
                     </div>
                 </section>
 
                 <section class="map-section">
                     <h2 class="section-title hidden-title">Dust 2 <i class="fas fa-chevron-down toggle-map collapsed" id="dustToggle" aria-label="Rozwiń/zwiń mapę"></i></h2>
                     <div class="map-container collapsed" id="dustContainer">
-                        <p class="map-info">Taktyki na mapie Dust 2 zostaną wkrótce dodane.</p>
+                        <p class="map-info">Taktyki na Dust 2 dodamy później.</p>
                     </div>
                 </section>
             </div>
         </main>
-        
+
         <div data-include="footer"></div>
     </div>
-    
-    <div data-include="menu-overlay"></div>
 
     <!-- Skrypty ładowane na końcu dla lepszej wydajności -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    <script src="include.js" defer></script>
+    <script type="module" src="include.js" defer></script>
     <script type="module" src="/features/holyfive/academy-perlin-bg.js"></script>
-    <script src="/features/holyfive/holyfive.js"></script>
-    <script src="/features/holyfive/akademia.js" defer></script>
+    <script type="module" src="/features/holyfive/holyfive.js"></script>
+    <script type="module" src="/features/holyfive/akademia.js" defer></script>
 </body>
 </html>

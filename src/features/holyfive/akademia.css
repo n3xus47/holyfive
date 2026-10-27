@@ -117,20 +117,6 @@ body::before {
   margin: 0 auto;
 }
 
-.academy-banner .top-header {
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.academy-banner .top-header .header {
-  max-width: 1000px;
-  width: 100%;
-  margin: 0 auto;
-}
-
 .academy-banner-content {
   position: relative;
   z-index: 2;
@@ -599,43 +585,43 @@ main::before {
   .page-content {
     padding: 0.5rem;
   }
-  
+
   .academy-banner h1 {
     font-size: 3rem;
   }
-  
+
   .academy-subtitle {
     font-size: 1.2rem;
   }
-  
+
   .section-title {
     font-size: 2rem;
     margin-bottom: 1rem;
   }
-  
+
   .map-container {
     min-height: calc(100vh - 150px);
     flex-direction: column;
     padding: 1rem;
   }
-  
+
   .map-left-section,
   .map-right-section {
     width: 100%;
     padding: 0.5rem;
   }
-  
+
   .map-left-section {
     max-height: 70vh;
     overflow-y: auto;
   }
-  
+
   .map-right-section {
     margin-top: 1rem;
     padding-top: 1rem;
     min-height: auto;
   }
-  
+
   .map-right-section::before {
     width: 100%;
     height: 2px;
@@ -643,21 +629,21 @@ main::before {
     left: 0;
     right: 0;
   }
-  
+
   .maps-title {
     font-size: 1rem;
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-  
+
   .maps-list {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
   }
-  
+
   .maps-list.collapsed {
     height: 0;
     padding: 0;
@@ -665,28 +651,28 @@ main::before {
     margin: 0;
     overflow: hidden;
   }
-  
+
   .map-button {
     width: calc(50% - 8px);
     padding: 10px 5px;
     font-size: 0.9rem;
   }
-  
+
   #currentMapImage {
     max-width: 100%;
   }
-  
+
   .fullscreen-map-image {
     max-width: 95%;
     max-height: 95%;
   }
-  
+
   .close-fullscreen-button {
     top: 10px;
     right: 20px;
     font-size: 2.5rem;
   }
-} 
+}
 
 /* Nowy poziomy układ map */
 .maps-horizontal-layout {
@@ -1181,57 +1167,57 @@ main::before {
     max-width: 100%;
     padding: 0 12px 32px;
   }
-  
+
   .map-panel {
     height: 140px;
     margin-bottom: 10px;
     flex: 1 1 auto;
   }
-  
+
   .map-panel:hover {
     flex: 1 1 auto;
     height: 220px;
   }
-  
+
   .map-panel:not(:hover) {
     flex: 1 1 auto;
   }
-  
+
   .map-panel-content {
     padding: 15px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
-  
+
   .map-panel-title {
     /* Wielkość jak w desktop – napisy 3rem */
   }
-  
+
   .map-panel-number {
     font-size: 3rem;
     margin-top: 0;
     bottom: 10px;
   }
-  
+
   .map-panel:hover .map-panel-title {
     transform: translateY(0);
   }
-  
+
   .map-modal-content {
     width: 95%;
     max-height: 95vh;
   }
-  
+
   .map-modal-header h2 {
     font-size: 1.5rem;
   }
-  
+
   .map-modal-body {
     padding: 20px;
     max-height: calc(95vh - 70px);
   }
-} 
+}
 
 /* Style dla czerwonych kropek */
 .blood-text {
@@ -1269,8 +1255,67 @@ main::before {
   .academy-banner-frame #akademiaTitle {
     font-size: 4rem !important;
   }
-  
+
   .map-panel-number {
     font-size: 3.5rem;
   }
-} 
+}
+body .academy-banner .academy-title,
+body .academy-banner .academy-title *,
+body .academy-banner .academy-subtitle,
+body .academy-banner .academy-subtitle * {
+  color: #000 !important;
+  -webkit-text-fill-color: #000;
+  text-shadow: none !important;
+}
+
+/* Extend the animated banner behind the shared header. */
+.academy-banner {
+  margin-top: -74px;
+  padding-top: 82px;
+  min-height: 260px;
+}
+@media (max-width: 600px) {
+  .academy-banner {
+    margin-top: -58px;
+    padding-top: 66px;
+    min-height: 220px;
+  }
+}
+
+.academy-banner {
+  height: 260px;
+  padding: 0;
+}
+.academy-banner .academy-banner-content {
+  position: absolute;
+  inset: 90px 20px 24px;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  gap: 18px;
+}
+.academy-banner .academy-title {
+  transform: none !important;
+  font-size: clamp(44px, 8vw, 96px);
+}
+.academy-banner .academy-subtitle { margin: 0; }
+@media (max-width: 600px) {
+  .academy-banner .academy-banner-content { inset: 74px 16px 20px; }
+}
+
+body .academy-banner .academy-subtitle,
+body .academy-banner .academy-subtitle * {
+  color: #000 !important;
+  -webkit-text-fill-color: #000;
+}
+
+.academy-banner .academy-banner-content {
+  bottom: 0;
+  justify-content: flex-end;
+}
+.content > main { padding-top: 0; }
+
+@media (max-width: 600px) {
+  .academy-banner { height: 220px; min-height: 220px; }
+}

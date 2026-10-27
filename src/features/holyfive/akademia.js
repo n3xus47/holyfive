@@ -24,7 +24,7 @@ const inicjalizujUI = () => {
     const content = document.getElementById('pageContent');
     const akademiaTitle = document.getElementById('akademiaTitle');
     const shimmeringSubtitle = document.querySelector('.shimmering-text');
-    
+
     if (loadingScreen && content) {
         setTimeout(() => {
             loadingScreen.classList.add('leave-transition', 'hidden');
@@ -37,7 +37,7 @@ const inicjalizujUI = () => {
                 // Wymuszamy styl jak w konfiguracji Black Ops One
                 akademiaTitle.style.fontFamily = '"Black Ops One", system-ui, sans-serif';
                 akademiaTitle.style.fontWeight = '100';
-                akademiaTitle.style.color = '#ffffff';
+                akademiaTitle.style.color = '#000000';
                 akademiaTitle.style.textTransform = 'uppercase';
                 akademiaTitle.style.lineHeight = '1';
                 akademiaTitle.style.transform = 'scale(1.8)';
@@ -71,19 +71,19 @@ const inicjalizujUI = () => {
 const inicjalizujModalneOkno = () => {
     const mapModal = document.getElementById('mapModal');
     const closeBtn = document.querySelector('.map-modal-close');
-    
+
     if (!mapModal || !closeBtn) return;
-    
+
     // Obsługa zamykania okna
     closeBtn.addEventListener('click', () => zamknijModal(mapModal));
-    
+
     // Zamykanie po kliknięciu poza zawartością
     mapModal.addEventListener('click', (e) => {
         if (e.target === mapModal) {
             zamknijModal(mapModal);
         }
     });
-    
+
     // Obsługa klawisza ESC (najpierw fullscreen, potem modal)
     document.addEventListener('keydown', (e) => {
         if (e.key !== 'Escape') return;
@@ -269,20 +269,20 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         rulesContainer.style.color = '#e0e0e0';
         rulesContainer.style.textAlign = 'left';
         const heading = document.createElement('h3');
-        heading.textContent = 'Zasady zespołu HOLY FIVE';
+        heading.textContent = 'Jak gramy w Holy Five';
         heading.style.marginTop = '0';
         heading.style.marginBottom = '16px';
         heading.style.fontSize = '1.4rem';
         heading.style.color = '#ffffff';
-        const list = document.createElement('ul');
+        const list = document.createElement('ol');
         list.style.paddingLeft = '20px';
         list.style.margin = '0';
         const rules = [
-            'Szanujmy czas – na serwer wchodzimy punktualnie, gotowi do gry.',
-            'Komunikacja tylko pod grę – zero zbędnego flame\'u i off–topu w rundzie.',
-            'Decyzje IGL-a są ostateczne w trakcie rundy – dyskusje po meczu.',
-            'Każdy wie swoje podstawowe role i pozycje – zmiany omawiamy wcześniej.',
-            'Gramy jako zespół – nie ma solowych akcji bez informacji dla reszty.'
+            'Ban Mirage',
+            'Ban Anubis',
+            'Ban Inferno',
+            'Gryzak nie kupuje flashy',
+            'HF'
         ];
         rules.forEach(text => {
             const li = document.createElement('li');
@@ -311,7 +311,7 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         container.appendChild(divider);
         const info = document.createElement('p');
         info.className = 'map-info';
-        info.innerHTML = 'Mapa <span style="color: #f9eb6d; font-weight: bold;">Nuke</span> to jedna z najbardziej ikonicznych map w CS2, przedstawiająca elektrownię jądrową. Taktyki na tej mapie zostaną wkrótce dodane.';
+        info.textContent = 'Nuke ma dwa poziomy. Pilnujmy przejść między bombsite’ami i podawajmy pozycje przeciwników.';
         info.style.color = '#e0e0e0';
         info.style.fontSize = '1.2rem';
         info.style.lineHeight = '1.5';
@@ -327,7 +327,7 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         infoBar.style.fontWeight = 'bold';
         infoBar.style.borderRadius = '5px';
         infoBar.style.marginTop = '30px';
-        infoBar.textContent = 'Prace nad taktykami dla tej mapy trwają...';
+        infoBar.textContent = 'Taktyki dodamy później.';
         container.appendChild(infoBar);
         bodyEl.appendChild(container);
     } else if (mapType === 'ancient') {
@@ -348,7 +348,7 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         container.appendChild(divider);
         const info = document.createElement('p');
         info.className = 'map-info';
-        info.innerHTML = 'Mapa <span style="color: #d3d3d3; font-weight: bold;">Ancient</span> to nowa mapa w puli turniejowej CS2, inspirowana świątyniami Azteków i Majów. Taktyki na tej mapie zostaną wkrótce dodane.';
+        info.textContent = 'Na Ancient walczymy o środek i ustalamy, na który bombsite wchodzimy.';
         info.style.color = '#e0e0e0';
         info.style.fontSize = '1.2rem';
         info.style.lineHeight = '1.5';
@@ -364,7 +364,7 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         infoBar.style.fontWeight = 'bold';
         infoBar.style.borderRadius = '5px';
         infoBar.style.marginTop = '30px';
-        infoBar.textContent = 'Prace nad taktykami dla tej mapy trwają...';
+        infoBar.textContent = 'Taktyki dodamy później.';
         container.appendChild(infoBar);
         bodyEl.appendChild(container);
     } else if (mapType === 'dust') {
@@ -385,7 +385,7 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         container.appendChild(divider);
         const info = document.createElement('p');
         info.className = 'map-info';
-        info.innerHTML = 'Mapa <span style="color: #d2b48c; font-weight: bold;">Dust 2</span> to prawdopodobnie najbardziej rozpoznawalna mapa w historii Counter-Strike, ulubienica graczy na całym świecie. Taktyki na tej mapie zostaną wkrótce dodane.';
+        info.textContent = 'Na Dust 2 ustalamy, kto pilnuje długiej, środka i tuneli.';
         info.style.color = '#e0e0e0';
         info.style.fontSize = '1.2rem';
         info.style.lineHeight = '1.5';
@@ -401,7 +401,7 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         infoBar.style.fontWeight = 'bold';
         infoBar.style.borderRadius = '5px';
         infoBar.style.marginTop = '30px';
-        infoBar.textContent = 'Prace nad taktykami dla tej mapy trwają...';
+        infoBar.textContent = 'Taktyki dodamy później.';
         container.appendChild(infoBar);
         bodyEl.appendChild(container);
     } else {
@@ -411,9 +411,9 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
         container.style.textAlign = 'center';
         let infoText;
         switch (mapType) {
-            case 'ancient': infoText = 'Taktyki na mapie Ancient zostaną wkrótce dodane.'; break;
-            case 'dust': infoText = 'Taktyki na mapie Dust 2 zostaną wkrótce dodane.'; break;
-            default: infoText = 'Informacje o tej mapie zostaną wkrótce dodane.';
+            case 'ancient': infoText = 'Taktyki na Ancient dodamy później.'; break;
+            case 'dust': infoText = 'Taktyki na Dust 2 dodamy później.'; break;
+            default: infoText = 'Opis mapy dodamy później.';
         }
         const info = document.createElement('p');
         info.className = 'map-info';
@@ -426,10 +426,10 @@ const wypelnijZawartoscMapy = (mapType, title, headerEl, titleEl, bodyEl) => {
 // Funkcja zamykająca modalne okno
 const zamknijModal = (mapModal) => {
     if (!mapModal) return;
-    
+
     // Dodajemy klasę animacji zamykania
     mapModal.classList.add('closing');
-    
+
     // Po zakończeniu animacji usuwamy klasę active
     setTimeout(() => {
         mapModal.classList.remove('active', 'closing');
@@ -441,21 +441,21 @@ const zamknijModal = (mapModal) => {
 // Nowa funkcja do inicjalizacji poziomego układu map
 const inicjalizujPoziomyUkladMap = () => {
     const mapPanels = document.querySelectorAll('.map-panel');
-    
+
     if (mapPanels.length === 0) return;
-    
+
     // Dodajemy obsługę płynnego przejścia
     mapPanels.forEach(panel => {
         const mapImage = panel.querySelector('.map-panel-image');
         const panelTitle = panel.querySelector('.map-panel-title');
         const panelNumber = panel.querySelector('.map-panel-number');
-        
+
         // Płynne pojawienie się obrazu na hover
         panel.addEventListener('mouseenter', () => {
             if (mapImage) {
                 // Ustawienie płynniejszego przejścia
                 mapImage.style.transition = 'opacity 0.5s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                
+
                 // Dodatkowe efekty dla tekstu
                 if (panelTitle) {
                     panelTitle.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.3s ease';
@@ -464,20 +464,20 @@ const inicjalizujPoziomyUkladMap = () => {
                         panelTitle.style.color = '#ff3131';
                     }
                 }
-                
+
                 if (panelNumber) {
                     panelNumber.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, text-shadow 0.5s ease';
                     panelNumber.style.textShadow = '0 4px 8px rgba(0, 0, 0, 0.9)';
                 }
             }
         });
-        
+
         // Płynne znikanie obrazu po zjechaniu myszką
         panel.addEventListener('mouseleave', () => {
             if (mapImage) {
                 // Efekt opóźnionego znikania
                 mapImage.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                
+
                 // Przywracanie podstawowych cieni dla tekstu
                 if (panelTitle) {
                     panelTitle.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.3s ease';
@@ -486,24 +486,24 @@ const inicjalizujPoziomyUkladMap = () => {
                         panelTitle.style.color = '';
                     }
                 }
-                
+
                 if (panelNumber) {
                     panelNumber.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, text-shadow 0.5s ease';
                     panelNumber.style.textShadow = '0 2px 4px rgba(0, 0, 0, 0.8)';
                 }
             }
         });
-        
+
         // Obsługa kliknięć w panele map – najpierw pełny ekran z obrazem (animacja CODE(6)), potem modal
         panel.addEventListener('click', () => {
             const mapType = panel.getAttribute('data-map');
             const mapTitle = panel.querySelector('.map-panel-title').textContent;
-            
+
             panel.style.transform = 'scale(0.98)';
             setTimeout(() => {
                 panel.style.transform = 'scale(1)';
             }, 150);
-            
+
             otworzFullscreenObraz(mapType, mapTitle);
         });
     });
@@ -520,11 +520,11 @@ const inicjalizujSekcjeMapa = () => {
     const mapButtons = document.querySelectorAll('.map-button');
     const mapLeftSection = document.querySelector('.map-left-section');
     const mapRightSection = document.querySelector('.map-right-section');
-    
+
     // Konfiguracja przełączników map
-    ['map', 'nuke', 'ancient', 'dust'].forEach(map => 
+    ['map', 'nuke', 'ancient', 'dust'].forEach(map =>
         setupMapToggle(`${map}Toggle`, `${map}Container`, `${map}Collapsed`));
-    
+
     if (mapButtons.length > 0 && mapLeftSection) {
         inicjalizujEdytorMap(mapButtons, mapLeftSection, mapRightSection);
     }
@@ -534,15 +534,15 @@ const inicjalizujSekcjeMapa = () => {
 const setupMapToggle = (toggleId, containerId, storageKey) => {
     const toggle = document.getElementById(toggleId);
     const container = document.getElementById(containerId);
-    
+
     if (!toggle || !container) return;
-    
+
     toggle.addEventListener('click', () => {
         container.classList.toggle('collapsed');
         toggle.classList.toggle('collapsed');
         localStorage.setItem(storageKey, container.classList.contains('collapsed'));
     });
-    
+
     const savedState = localStorage.getItem(storageKey);
     if (savedState === null || savedState === 'true') {
         container.classList.add('collapsed');
@@ -553,7 +553,7 @@ const setupMapToggle = (toggleId, containerId, storageKey) => {
 // Inicjalizacja edytora map taktycznych
 const inicjalizujEdytorMap = (mapButtons, mapLeftSection, mapRightSection) => {
     const { editorContainer, mapImage, mapPlaceholder, canvas } = utworzElementyEdytora(mapLeftSection);
-    
+
     // Zmienne globalne rysowania
     const rysowanie = {
         isDrawing: false,
@@ -572,13 +572,13 @@ const inicjalizujEdytorMap = (mapButtons, mapLeftSection, mapRightSection) => {
         dragOffsetX: 0,
         dragOffsetY: 0
     };
-    
+
     // Utworzenie i inicjalizacja komponentów
     dodajPanelDoMapy(utworzPanelNarzedzi(rysowanie, canvas), mapRightSection);
     inicjalizujFunkcjeRysowania(rysowanie, canvas);
     inicjalizujPodgladPelnoekranowy(mapImage, canvas);
     dodajObslugeMapPrzyciskow(mapButtons, editorContainer, mapImage, mapPlaceholder, canvas, rysowanie);
-    
+
     // Ustaw domyślnie tryb zaznaczania
     setTimeout(() => {
         const selectBtn = document.querySelector('.action-button');
@@ -660,33 +660,33 @@ const utworzElementyEdytora = (mapLeftSection) => {
     editorContainer.id = 'editorContainer';
     Object.assign(editorContainer.style, elementStyle.editor);
     mapLeftSection.appendChild(editorContainer);
-    
+
     // Dodajemy obraz mapy
     const mapImage = document.createElement('img');
     mapImage.id = 'currentMapImage';
     Object.assign(mapImage.style, elementStyle.image);
     editorContainer.appendChild(mapImage);
-    
+
     // Dodajemy placeholder
     const mapPlaceholder = document.createElement('div');
     mapPlaceholder.id = 'mapPlaceholder';
     Object.assign(mapPlaceholder.style, elementStyle.placeholder);
     mapPlaceholder.textContent = 'WYBIERZ MAPĘ';
     editorContainer.appendChild(mapPlaceholder);
-    
+
     // Dodajemy canvas do rysowania
     const canvas = document.createElement('canvas');
     canvas.id = 'drawingCanvas';
     Object.assign(canvas.style, elementStyle.canvas);
     editorContainer.appendChild(canvas);
-    
+
     // Dodajemy przycisk X do zamykania całego kontenera mapy
     const closeButton = document.createElement('span');
     closeButton.innerHTML = '&times;';
     closeButton.id = 'mapContainerClose';
     Object.assign(closeButton.style, elementStyle.closeButton);
     mapLeftSection.appendChild(closeButton);
-    
+
     // Dodajemy efekt hover dla przycisku zamykania
     closeButton.addEventListener('mouseenter', () => {
         Object.assign(closeButton.style, {
@@ -694,14 +694,14 @@ const utworzElementyEdytora = (mapLeftSection) => {
             transform: 'rotate(90deg)'
         });
     });
-    
+
     closeButton.addEventListener('mouseleave', () => {
         Object.assign(closeButton.style, {
             backgroundColor: 'transparent',
             transform: 'rotate(0deg)'
         });
     });
-    
+
     // Dodajemy funkcjonalność zamykania
     closeButton.addEventListener('click', () => {
         // Jeśli jesteśmy w modalnym oknie, zamykamy je
@@ -719,7 +719,7 @@ const utworzElementyEdytora = (mapLeftSection) => {
             }
         }
     });
-    
+
     return { editorContainer, mapImage, mapPlaceholder, canvas };
 };
 
@@ -744,14 +744,14 @@ const utworzPanelNarzedzi = (rysowanie, canvas) => {
         overflowY: 'auto',
         position: 'relative'
     });
-    
+
     // Dodajemy komponenty panelu
     dodajTytulPanelu(toolsPanel);
     dodajSkrotyKlawiszowe(toolsPanel);
     dodajWyborKolorow(toolsPanel, rysowanie, canvas);
     dodajIkonyGraczy(toolsPanel, rysowanie, canvas);
     dodajPrzyskiAkcji(toolsPanel, rysowanie, canvas);
-    
+
     return toolsPanel;
 };
 
@@ -796,9 +796,9 @@ const dodajWyborKolorow = (toolsPanel, rysowanie, canvas) => {
         marginBottom: '10px',
         width: '100%'
     });
-    
+
     const colors = ['#ff3131', '#3186ff', '#31ff31', '#ffff31', '#ff31ff', '#00CED1', '#ffffff', '#000000'];
-    
+
     colors.forEach(color => {
         const colorBtn = document.createElement('button');
         colorBtn.classList.add('color-button');
@@ -811,19 +811,19 @@ const dodajWyborKolorow = (toolsPanel, rysowanie, canvas) => {
             cursor: 'pointer',
             transition: 'transform 0.2s ease'
         });
-        
+
         colorBtn.addEventListener('click', function() {
             document.querySelectorAll('.color-button').forEach(btn => {
                 btn.style.border = '1px solid #ccc';
                 btn.style.transform = 'scale(1)';
             });
-            
+
             this.style.border = '2px solid #000';
             this.style.transform = 'scale(1.1)';
-            
+
             rysowanie.currentColor = color;
             rysowanie.isSelectMode = false;
-            
+
             // Aktualizacja przycisków
             document.querySelectorAll('.action-button').forEach(btn => {
                 if (btn.textContent === 'Zaznacz') {
@@ -835,13 +835,13 @@ const dodajWyborKolorow = (toolsPanel, rysowanie, canvas) => {
                     });
                 }
             });
-            
+
             canvas.style.cursor = 'crosshair';
         });
-        
+
         colorsContainer.appendChild(colorBtn);
     });
-    
+
     toolsPanel.appendChild(colorsContainer);
 };
 
@@ -856,7 +856,7 @@ const dodajIkonyGraczy = (toolsPanel, rysowanie, canvas) => {
         marginBottom: '10px',
         width: '100%'
     });
-    
+
     // Etykieta
     const playersLabel = document.createElement('div');
     playersLabel.textContent = 'Gracze:';
@@ -869,7 +869,7 @@ const dodajIkonyGraczy = (toolsPanel, rysowanie, canvas) => {
         width: '100%'
     });
     playersContainer.appendChild(playersLabel);
-    
+
     // Kontener ikon
     const playersIconsContainer = document.createElement('div');
     Object.assign(playersIconsContainer.style, {
@@ -878,12 +878,12 @@ const dodajIkonyGraczy = (toolsPanel, rysowanie, canvas) => {
         gap: '20px',
         width: '100%'
     });
-    
+
     // Dodanie ikon dla graczy
     [['T', '#ff8c00'], ['CT', '#3186ff']].forEach(([team, color]) => {
         playersIconsContainer.appendChild(utworzIkoneGracza(team, color, rysowanie, canvas));
     });
-    
+
     playersContainer.appendChild(playersIconsContainer);
     toolsPanel.appendChild(playersContainer);
 };
@@ -908,7 +908,7 @@ const utworzIkoneGracza = (team, color, rysowanie, canvas) => {
         transition: 'transform 0.2s ease, box-shadow 0.2s ease'
     });
     icon.textContent = team;
-    
+
     // Efekty hover
     icon.addEventListener('mouseenter', function() {
         Object.assign(this.style, {
@@ -916,25 +916,25 @@ const utworzIkoneGracza = (team, color, rysowanie, canvas) => {
             boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
         });
     });
-    
+
     icon.addEventListener('mouseleave', function() {
         Object.assign(this.style, {
             transform: 'scale(1)',
             boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
         });
     });
-    
+
     // Funkcjonalność dodawania ikony na canvas
     icon.addEventListener('click', function() {
         if (!rysowanie.ctx) return;
-        
+
         // Zapisz do stosu cofania
         saveToUndoStack(rysowanie);
-        
+
         // Pozycja domyślna na środku
         const x = canvas.width / 2;
         const y = canvas.height / 2;
-        
+
         // Rysowanie ikony
         rysowanie.ctx.beginPath();
         rysowanie.ctx.arc(x, y, 15, 0, Math.PI * 2);
@@ -943,14 +943,14 @@ const utworzIkoneGracza = (team, color, rysowanie, canvas) => {
         rysowanie.ctx.strokeStyle = '#000';
         rysowanie.ctx.lineWidth = 2;
         rysowanie.ctx.stroke();
-        
+
         // Dodanie tekstu
         rysowanie.ctx.fillStyle = '#000';
         rysowanie.ctx.font = 'bold 15px Satoshi, sans-serif';
         rysowanie.ctx.textAlign = 'center';
         rysowanie.ctx.textBaseline = 'middle';
         rysowanie.ctx.fillText(team, x, y);
-        
+
         // Dodanie do tablicy kształtów
         rysowanie.shapes.push([{
             type: 'player-icon',
@@ -961,11 +961,11 @@ const utworzIkoneGracza = (team, color, rysowanie, canvas) => {
             color,
             textColor: '#000'
         }]);
-        
+
         // Po dodaniu ikony od razu włącz tryb zaznaczania
         wlaczTrybZaznaczania(rysowanie, canvas);
     });
-    
+
     return icon;
 };
 
@@ -980,7 +980,7 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
         marginTop: '10px',
         width: '100%'
     });
-    
+
     // Etykieta
     const actionsLabel = document.createElement('div');
     actionsLabel.textContent = 'Akcje:';
@@ -993,7 +993,7 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
         width: '100%'
     });
     actionsContainer.appendChild(actionsLabel);
-    
+
     // Przyciski akcji
     const actionsButtonsContainer = document.createElement('div');
     Object.assign(actionsButtonsContainer.style, {
@@ -1003,7 +1003,7 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
         flexWrap: 'wrap',
         width: '100%'
     });
-    
+
     // Przycisk zaznaczania
     const selectButton = utworzPrzyciskAkcji('Zaznacz', rysowanie, canvas);
     Object.assign(selectButton.style, {
@@ -1012,7 +1012,7 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
         transform: 'translateY(-2px)',
         boxShadow: '0 4px 8px rgba(255, 49, 49, 0.3)'
     });
-    
+
     // Dodanie obsługi zdarzenia dla trybu zaznaczania
     selectButton.addEventListener('click', function() {
         document.querySelectorAll('.action-button').forEach(btn => {
@@ -1021,20 +1021,20 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
             btn.style.transform = 'translateY(0)';
             btn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
         });
-        
+
         Object.assign(this.style, {
             backgroundColor: '#ff3131',
             color: '#fff',
             transform: 'translateY(-2px)',
             boxShadow: '0 4px 8px rgba(255, 49, 49, 0.3)'
         });
-        
+
         wlaczTrybZaznaczania(rysowanie, canvas);
     });
-    
+
     // Przycisk rysowania
     const drawButton = utworzPrzyciskAkcji('Rysuj', rysowanie, canvas);
-    
+
     drawButton.addEventListener('click', function() {
         document.querySelectorAll('.action-button').forEach(btn => {
             btn.style.backgroundColor = '#333';
@@ -1042,20 +1042,20 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
             btn.style.transform = 'translateY(0)';
             btn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
         });
-        
+
         Object.assign(this.style, {
             backgroundColor: '#ff3131',
             color: '#fff',
             transform: 'translateY(-2px)',
             boxShadow: '0 4px 8px rgba(255, 49, 49, 0.3)'
         });
-        
+
         wlaczTrybRysowania(rysowanie, canvas);
     });
-    
+
     // Przycisk trybu ciągłego
     const stayInDrawModeButton = utworzPrzyciskAkcji('Tryb ciągły', rysowanie, canvas);
-    
+
     // Ustaw początkowy wygląd przycisku w zależności od wartości flagi
     if (rysowanie.stayInDrawMode) {
         Object.assign(stayInDrawModeButton.style, {
@@ -1065,10 +1065,10 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
             boxShadow: '0 4px 8px rgba(255, 49, 49, 0.3)'
         });
     }
-    
+
     stayInDrawModeButton.addEventListener('click', function() {
         rysowanie.stayInDrawMode = !rysowanie.stayInDrawMode;
-        
+
         if (rysowanie.stayInDrawMode) {
             Object.assign(this.style, {
                 backgroundColor: '#ff3131',
@@ -1085,13 +1085,13 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
             });
         }
     });
-    
+
     actionsButtonsContainer.appendChild(selectButton);
     actionsButtonsContainer.appendChild(drawButton);
-    
+
     // Przycisk czyszczenia
     const clearButton = utworzPrzyciskAkcji('Wyczyść', rysowanie, canvas);
-    
+
     clearButton.addEventListener('click', function() {
         if (confirm('Czy na pewno chcesz wyczyścić całą tablicę?')) {
             rysowanie.shapes = [];
@@ -1099,9 +1099,9 @@ const dodajPrzyskiAkcji = (toolsPanel, rysowanie, canvas) => {
             redrawCanvas(rysowanie);
         }
     });
-    
+
     actionsButtonsContainer.appendChild(clearButton);
-    
+
     // Dodanie wszystkich przycisków
     actionsContainer.appendChild(actionsButtonsContainer);
     toolsPanel.appendChild(actionsContainer);
@@ -1126,10 +1126,10 @@ const utworzPrzyciskAkcji = (text, rysowanie, canvas) => {
         minWidth: '80px',
         fontWeight: 'bold'
     });
-    
+
     // Efekty hover
     dodajEfektHover(button);
-    
+
     return button;
 };
 
@@ -1144,7 +1144,7 @@ const dodajEfektHover = (button) => {
             });
         }
     });
-    
+
     button.addEventListener('mouseleave', function() {
         if (this.style.backgroundColor !== '#ff3131') {
             Object.assign(this.style, {
@@ -1170,7 +1170,7 @@ const dodajPanelDoMapy = (toolsPanel, mapRightSection) => {
     }
 };
 
-// Inicjalizacja funkcji rysowania 
+// Inicjalizacja funkcji rysowania
 const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
     // Funkcja inicjalizująca canvas
     const initCanvas = (mapImage) => {
@@ -1178,30 +1178,30 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
             setTimeout(() => initCanvas(mapImage), 100);
             return;
         }
-        
+
         const rect = mapImage.getBoundingClientRect();
         canvas.width = rect.width;
         canvas.height = rect.height;
-        
+
         rysowanie.ctx = canvas.getContext('2d');
         rysowanie.ctx.lineCap = 'round';
         rysowanie.ctx.lineJoin = 'round';
     };
-    
+
     // Rozpoczęcie rysowania
     const startDrawing = (e) => {
         if (rysowanie.isSelectMode) {
             handleSelectStart(e);
             return;
         }
-        
+
         rysowanie.isDrawing = true;
-        
+
         // Pozycja myszy
         const rect = canvas.getBoundingClientRect();
         rysowanie.lastX = e.clientX - rect.left;
         rysowanie.lastY = e.clientY - rect.top;
-        
+
         // Nowy kształt
         rysowanie.currentShape = [{
             x: rysowanie.lastX,
@@ -1210,85 +1210,85 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
             lineWidth: rysowanie.lineWidth
         }];
     };
-    
+
     // Rysowanie
     const draw = (e) => {
         if (rysowanie.isSelectMode) {
             handleSelectMove(e);
             return;
         }
-        
+
         if (!rysowanie.isDrawing || !rysowanie.ctx) return;
-        
+
         // Aktualna pozycja myszy
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         // Ustawienie stylu i rysowanie
         Object.assign(rysowanie.ctx, {
             lineWidth: rysowanie.lineWidth,
             globalCompositeOperation: 'source-over',
             strokeStyle: rysowanie.currentColor
         });
-        
+
         rysowanie.ctx.beginPath();
         rysowanie.ctx.moveTo(rysowanie.lastX, rysowanie.lastY);
         rysowanie.ctx.lineTo(x, y);
         rysowanie.ctx.stroke();
-        
+
         // Dodanie punktu
         rysowanie.currentShape.push({
-            x, y, 
+            x, y,
             color: rysowanie.currentColor,
             lineWidth: rysowanie.lineWidth
         });
-        
+
         // Aktualizacja pozycji
         rysowanie.lastX = x;
         rysowanie.lastY = y;
     };
-    
+
     // Koniec rysowania
     const stopDrawing = () => {
         if (rysowanie.isSelectMode) {
             handleSelectEnd();
             return;
         }
-        
+
         if (!rysowanie.isDrawing) return;
         rysowanie.isDrawing = false;
-        
+
         // Dodanie kształtu
         if (rysowanie.currentShape.length > 1) {
             saveToUndoStack(rysowanie);
             rysowanie.shapes.push(rysowanie.currentShape);
-            
+
             // Auto-przełączenie do trybu zaznaczania
             if (!rysowanie.stayInDrawMode) {
                 wlaczTrybZaznaczania(rysowanie, canvas);
             }
         }
-        
+
         rysowanie.currentShape = [];
     };
-    
+
     // Obsługa zaznaczania
     const handleSelectStart = (e) => {
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         // Sprawdzenie czy kliknięto na kształt
         const clickedShapeIndex = findShapeAt(x, y, rysowanie);
-        
+
         if (clickedShapeIndex !== -1) {
             rysowanie.selectedShape = clickedShapeIndex;
             rysowanie.isDragging = true;
-            
+
             // Offset przesuwania
             const shape = rysowanie.shapes[rysowanie.selectedShape];
-            
+
             if (shape[0]?.type === 'player-icon') {
                 const icon = shape[0];
                 rysowanie.dragOffsetX = x - icon.x;
@@ -1298,25 +1298,25 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
                 rysowanie.dragOffsetX = x - bounds.minX;
                 rysowanie.dragOffsetY = y - bounds.minY;
             }
-            
+
             redrawCanvas(rysowanie);
         } else {
             rysowanie.selectedShape = null;
             redrawCanvas(rysowanie);
         }
     };
-    
+
     // Przesuwanie zaznaczonego kształtu
     const handleSelectMove = (e) => {
         if (!rysowanie.isDragging || rysowanie.selectedShape === null) return;
-        
+
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         // Przesuwanie kształtu
         const shape = rysowanie.shapes[rysowanie.selectedShape];
-        
+
         if (shape[0]?.type === 'player-icon') {
             const icon = shape[0];
             icon.x = x - rysowanie.dragOffsetX;
@@ -1325,25 +1325,25 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
             const bounds = getShapeBounds(shape);
             const deltaX = x - rysowanie.dragOffsetX - bounds.minX;
             const deltaY = y - rysowanie.dragOffsetY - bounds.minY;
-            
+
             shape.forEach(point => {
                 point.x += deltaX;
                 point.y += deltaY;
             });
         }
-        
+
         redrawCanvas(rysowanie);
     };
-    
+
     // Koniec zaznaczania
     const handleSelectEnd = () => {
         if (rysowanie.isDragging && rysowanie.selectedShape !== null) {
             saveToUndoStack(rysowanie);
         }
-        
+
         rysowanie.isDragging = false;
     };
-    
+
     // Dodanie obsługi zdarzeń
     const addEventListeners = () => {
         // Zdarzenia myszy
@@ -1351,7 +1351,7 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseout', stopDrawing);
-        
+
         // Obsługa dotyku
         const createTouchHandler = (mouseEventType) => (e) => {
             e.preventDefault();
@@ -1359,7 +1359,7 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
                 canvas.dispatchEvent(new MouseEvent(mouseEventType));
                 return;
             }
-            
+
             const touch = e.touches[0];
             const mouseEvent = new MouseEvent(mouseEventType, {
                 clientX: touch.clientX,
@@ -1367,11 +1367,11 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
             });
             canvas.dispatchEvent(mouseEvent);
         };
-        
+
         canvas.addEventListener('touchstart', createTouchHandler('mousedown'));
         canvas.addEventListener('touchmove', createTouchHandler('mousemove'));
         canvas.addEventListener('touchend', createTouchHandler('mouseup'));
-        
+
         // Obsługa klawiszy
         document.addEventListener('keydown', (e) => {
             // Ctrl+Z - Cofnij
@@ -1380,7 +1380,7 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
                 undo(rysowanie);
                 wlaczTrybZaznaczania(rysowanie, canvas);
             }
-            
+
             // Delete - Usuń zaznaczony
             if (e.key === 'Delete' && rysowanie.selectedShape !== null) {
                 saveToUndoStack(rysowanie);
@@ -1391,10 +1391,10 @@ const inicjalizujFunkcjeRysowania = (rysowanie, canvas) => {
             }
         });
     };
-    
+
     // Dodanie event listenerów
     addEventListeners();
-    
+
     // Eksportowanie funkcji inicjalizacji canvasa
     rysowanie.initCanvas = initCanvas;
 };
@@ -1407,57 +1407,57 @@ const inicjalizujPodgladPelnoekranowy = (mapImage, canvas) => {
         image: document.createElement('img'),
         closeButton: document.createElement('span')
     };
-    
+
     // Konfiguracja overlay
     elements.overlay.id = 'mapFullscreenOverlay';
     elements.overlay.style.display = 'none';
     elements.overlay.classList.add('map-fullscreen-overlay');
-    
+
     // Konfiguracja obrazu
     elements.image.id = 'fullscreenMapImage';
     elements.image.classList.add('fullscreen-map-image');
-    
+
     // Konfiguracja przycisku zamknięcia
     elements.closeButton.id = 'closeFullscreenButton';
     elements.closeButton.classList.add('close-fullscreen-button');
     elements.closeButton.innerHTML = '&times;';
-    
+
     // Złożenie elementów
     elements.overlay.appendChild(elements.image);
     elements.overlay.appendChild(elements.closeButton);
     document.body.appendChild(elements.overlay);
-    
+
     // Obsługa kliknięcia w obraz - powiększanie
     mapImage.addEventListener('click', () => {
         // Połączenie mapy i rysunku
         const dataURL = canvas.toDataURL();
         const img = new Image();
-        
+
         img.onload = () => {
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = canvas.width;
             tempCanvas.height = canvas.height;
             const tempCtx = tempCanvas.getContext('2d');
-            
+
             // Warstwowe rysowanie
             tempCtx.drawImage(mapImage, 0, 0, canvas.width, canvas.height);
             tempCtx.drawImage(img, 0, 0);
-            
+
             // Wyświetlenie wyniku
             elements.image.src = tempCanvas.toDataURL();
             elements.overlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         };
-        
+
         img.src = dataURL;
     });
-    
+
     // Obsługa zamykania podglądu
     const closeFullscreen = () => {
         elements.overlay.style.display = 'none';
         document.body.style.overflow = 'auto';
     };
-    
+
     elements.closeButton.addEventListener('click', closeFullscreen);
     elements.overlay.addEventListener('click', (e) => {
         if (e.target === elements.overlay) closeFullscreen();
@@ -1471,14 +1471,14 @@ const dodajObslugeMapPrzyciskow = (mapButtons, editorContainer, mapImage, mapPla
             // Reset UI
             mapButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
-            
+
             // Pobierz nazwę mapy
             const mapName = this.getAttribute('data-map');
-            
+
             // Aktualizacja UI
             editorContainer.style.display = 'block';
             mapPlaceholder.style.display = 'none';
-            
+
             // Konfiguracja obrazu mapy
             Object.assign(mapImage, {
                 src: `${mapName}.webp`,
@@ -1494,17 +1494,17 @@ const dodajObslugeMapPrzyciskow = (mapButtons, editorContainer, mapImage, mapPla
                     mapPlaceholder.style.display = 'flex';
                 }
             });
-            
+
             // Konfiguracja stylów
             Object.assign(mapImage.style, {
                 display: 'block',
                 marginTop: '0',
                 transition: 'all 0.3s ease'
             });
-            
+
             // Konfiguracja canvas
             canvas.style.display = 'block';
-            
+
             // Reset stanu rysowania
             if (rysowanie.ctx) {
                 rysowanie.ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1523,7 +1523,7 @@ const findShapeAt = (x, y, rysowanie) => {
     for (let i = rysowanie.shapes.length - 1; i >= 0; i--) {
         const shape = rysowanie.shapes[i];
         if (!shape.length) continue;
-        
+
         // Sprawdź czy to ikona gracza
         if (shape[0]?.type === 'player-icon') {
             const icon = shape[0];
@@ -1531,7 +1531,7 @@ const findShapeAt = (x, y, rysowanie) => {
             if (distance <= icon.radius) return i;
             continue;
         }
-        
+
         // Standardowe sprawdzanie dla linii
         if (isPointInShape(x, y, shape, rysowanie.lineWidth)) {
             return i;
@@ -1543,17 +1543,17 @@ const findShapeAt = (x, y, rysowanie) => {
 // Sprawdza, czy punkt jest w kształcie
 const isPointInShape = (x, y, shape, lineWidth) => {
     const tolerance = lineWidth * 2; // Tolerancja
-    
+
     for (let i = 1; i < shape.length; i++) {
         const p1 = shape[i - 1];
         const p2 = shape[i];
-        
+
         // Odległość punktu od linii
         if (distanceToLine(x, y, p1.x, p1.y, p2.x, p2.y) < tolerance) {
             return true;
         }
     }
-    
+
     return false;
 };
 
@@ -1563,17 +1563,17 @@ const distanceToLine = (x, y, x1, y1, x2, y2) => {
     const B = y - y1;
     const C = x2 - x1;
     const D = y2 - y1;
-    
+
     const dot = A * C + B * D;
     const len_sq = C * C + D * D;
     let param = -1;
-    
+
     if (len_sq !== 0) {
         param = dot / len_sq;
     }
-    
+
     let xx, yy;
-    
+
     if (param < 0) {
         xx = x1;
         yy = y1;
@@ -1584,10 +1584,10 @@ const distanceToLine = (x, y, x1, y1, x2, y2) => {
         xx = x1 + param * C;
         yy = y1 + param * D;
     }
-    
+
     const dx = x - xx;
     const dy = y - yy;
-    
+
     return Math.sqrt(dx * dx + dy * dy);
 };
 
@@ -1595,7 +1595,7 @@ const distanceToLine = (x, y, x1, y1, x2, y2) => {
 const getShapeBounds = (shape) => {
     let minX = Infinity, minY = Infinity;
     let maxX = -Infinity, maxY = -Infinity;
-    
+
     // Sprawdź czy to ikona gracza
     if (shape[0]?.type === 'player-icon') {
         const icon = shape[0];
@@ -1612,7 +1612,7 @@ const getShapeBounds = (shape) => {
             maxY = Math.max(maxY, point.y);
         });
     }
-    
+
     return { minX, minY, maxX, maxY };
 };
 
@@ -1624,7 +1624,7 @@ const saveToUndoStack = (rysowanie) => {
 // Cofnięcie operacji
 const undo = (rysowanie) => {
     if (rysowanie.undoStack.length === 0) return;
-    
+
     rysowanie.shapes = JSON.parse(rysowanie.undoStack.pop());
     rysowanie.selectedShape = null;
     redrawCanvas(rysowanie);
@@ -1633,18 +1633,18 @@ const undo = (rysowanie) => {
 // Odrysowanie canvasa
 const redrawCanvas = (rysowanie) => {
     if (!rysowanie.ctx) return;
-    
+
     // Wyczyść canvas
     rysowanie.ctx.clearRect(0, 0, rysowanie.ctx.canvas.width, rysowanie.ctx.canvas.height);
-    
+
     // Rysuj wszystkie kształty
     rysowanie.shapes.forEach((shape, s) => {
         if (shape.length < 1) return;
-        
+
         // Ikona gracza
         if (shape[0]?.type === 'player-icon') {
             const icon = shape[0];
-            
+
             // Okrągła ikonka
             rysowanie.ctx.beginPath();
             rysowanie.ctx.arc(icon.x, icon.y, icon.radius, 0, Math.PI * 2);
@@ -1653,14 +1653,14 @@ const redrawCanvas = (rysowanie) => {
             rysowanie.ctx.strokeStyle = '#000';
             rysowanie.ctx.lineWidth = 2;
             rysowanie.ctx.stroke();
-            
+
             // Tekst
             rysowanie.ctx.fillStyle = icon.textColor;
             rysowanie.ctx.font = 'bold 15px Satoshi, sans-serif';
             rysowanie.ctx.textAlign = 'center';
             rysowanie.ctx.textBaseline = 'middle';
             rysowanie.ctx.fillText(icon.team, icon.x, icon.y);
-            
+
             // Zaznaczenie
             if (s === rysowanie.selectedShape) {
                 rysowanie.ctx.strokeStyle = '#ff3131';
@@ -1671,34 +1671,34 @@ const redrawCanvas = (rysowanie) => {
                 rysowanie.ctx.stroke();
                 rysowanie.ctx.setLineDash([]);
             }
-            
+
             return;
         }
-        
+
         // Standardowe linie
         if (shape.length < 2) return;
-        
+
         // Styl
         Object.assign(rysowanie.ctx, {
             lineWidth: shape[0].lineWidth,
             strokeStyle: shape[0].color,
             globalCompositeOperation: 'source-over'
         });
-        
+
         // Rysowanie ścieżki
         rysowanie.ctx.beginPath();
         rysowanie.ctx.moveTo(shape[0].x, shape[0].y);
-        
+
         for (let i = 1; i < shape.length; i++) {
             rysowanie.ctx.lineTo(shape[i].x, shape[i].y);
         }
-        
+
         rysowanie.ctx.stroke();
-        
+
         // Zaznaczenie
         if (s === rysowanie.selectedShape) {
             const bounds = getShapeBounds(shape);
-            
+
             rysowanie.ctx.strokeStyle = '#ff3131';
             rysowanie.ctx.lineWidth = 2;
             rysowanie.ctx.setLineDash([5, 3]);
@@ -1717,24 +1717,24 @@ const redrawCanvas = (rysowanie) => {
 const wlaczTrybZaznaczania = (rysowanie, canvas) => {
     rysowanie.isSelectMode = true;
     rysowanie.selectedShape = null;
-    
+
     // Zmiana kursora
     canvas.style.cursor = 'pointer';
-    
+
     // Uaktualnienie stanu przycisków
     document.querySelectorAll('.action-button').forEach(btn => {
         const isSelectButton = btn.textContent === 'Zaznacz';
-        
+
         Object.assign(btn.style, {
             backgroundColor: isSelectButton ? '#ff3131' : '#333',
             color: isSelectButton ? '#fff' : '#e0e0e0',
             transform: isSelectButton ? 'translateY(-2px)' : 'translateY(0)',
-            boxShadow: isSelectButton 
+            boxShadow: isSelectButton
                 ? '0 4px 8px rgba(255, 49, 49, 0.3)'
                 : '0 2px 4px rgba(0,0,0,0.2)'
         });
     });
-    
+
     // Usunięcie wyróżnienia z przycisków kolorów
     document.querySelectorAll('.color-button').forEach(btn => {
         btn.style.border = '1px solid #ccc';
@@ -1746,26 +1746,26 @@ const wlaczTrybZaznaczania = (rysowanie, canvas) => {
 const wlaczTrybRysowania = (rysowanie, canvas) => {
     rysowanie.isSelectMode = false;
     rysowanie.selectedShape = null;
-    
+
     // Zmiana kursora
     canvas.style.cursor = 'crosshair';
-    
+
     // Wyróżnij wybrany kolor
     document.querySelectorAll('.color-button').forEach(btn => {
         const isSelected = btn.style.backgroundColor === rysowanie.currentColor;
         btn.style.border = isSelected ? '2px solid #000' : '1px solid #ccc';
         btn.style.transform = isSelected ? 'scale(1.1)' : 'scale(1)';
     });
-    
+
     // Uaktualnienie stanu przycisków
     document.querySelectorAll('.action-button').forEach(btn => {
         const isDrawButton = btn.textContent === 'Rysuj';
-        
+
         Object.assign(btn.style, {
             backgroundColor: isDrawButton ? '#ff3131' : '#333',
             color: isDrawButton ? '#fff' : '#e0e0e0',
             transform: isDrawButton ? 'translateY(-2px)' : 'translateY(0)',
-            boxShadow: isDrawButton 
+            boxShadow: isDrawButton
                 ? '0 4px 8px rgba(255, 49, 49, 0.3)'
                 : '0 2px 4px rgba(0,0,0,0.2)'
         });
@@ -1776,10 +1776,10 @@ const wlaczTrybRysowania = (rysowanie, canvas) => {
 function slotMachineEffect(element, finalWord, duration = 2000) {
     // Tablica liter do losowania (znaki, które często występują w kasynach)
     const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(){}[]<>?/|\\';
-    
+
     // Czyścimy kontener
     element.innerHTML = '';
-    
+
     // Przygotowujemy kontener dla liter z wyrównanymi odstępami
     const wordContainer = document.createElement('div');
     wordContainer.style.display = 'flex';
@@ -1787,18 +1787,18 @@ function slotMachineEffect(element, finalWord, duration = 2000) {
     wordContainer.style.width = '100%';
     wordContainer.style.gap = '0.1em'; // Dodajemy mały odstęp między wszystkimi literami
     element.appendChild(wordContainer);
-    
+
     // Tworzymy miejsca dla każdej litery
     const letterContainers = [];
-    
+
     // Dzielimy finalWord na tablicę znaków
     const chars = finalWord.split('');
-    
+
     // Tworzymy span dla każdej litery finalnego słowa
     for (let i = 0; i < chars.length; i++) {
         const letterSpan = document.createElement('span');
         letterSpan.style.display = 'inline-block';
-        
+
         // Jeśli to spacja między HOLY i FIVE, dajemy mniejszą szerokość
         if (chars[i] === ' ') {
             letterSpan.style.width = '0.3em'; // Zmniejszona szerokość spacji
@@ -1806,49 +1806,49 @@ function slotMachineEffect(element, finalWord, duration = 2000) {
         } else {
             letterSpan.style.width = '0.8em'; // Stała szerokość dla każdej litery (nieco zmniejszona)
             letterSpan.style.textAlign = 'center'; // Wyśrodkowanie tekstu
-            
+
             // Dodajemy efekt migotania
             letterSpan.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.2)';
         }
-        
+
         wordContainer.appendChild(letterSpan);
         letterContainers.push(letterSpan);
     }
-    
+
     // Uruchamiamy animację dla każdej litery z opóźnieniem
     letterContainers.forEach((container, index) => {
         if (chars[index] === ' ') return;
-        
+
         let startTime = null;
         // Stały czas animacji dla każdej litery – unikamy „lagów”
         const letterDuration = duration;
         // Minimalna liczba zmian przed ostateczną literą
         const minChanges = 10;
         let changes = 0;
-        
+
         function animate(timestamp) {
             if (!startTime) startTime = timestamp;
             const elapsed = timestamp - startTime;
-            
+
             // Obliczamy progres animacji od 0 do 1
             const progress = Math.min(1, elapsed / letterDuration);
-            
+
             // Losujemy literę
             if (progress < 1 || changes < minChanges) {
                 // Częstotliwość zmian zmniejsza się wraz z upływem czasu
                 const changeSpeed = Math.max(30, 150 * (1 - progress)); // Zwiększona częstość zmian
-                
+
                 // Zmieniamy literę tylko co kilka klatek
                 if (elapsed % changeSpeed < 16) { // 16ms to około 1 klatka przy 60fps
                     changes++;
                     // Im bliżej końca, tym większa szansa na prawidłową literę
                     const correctChance = progress * progress; // Kwadratowa funkcja daje bardziej eksponencjalny wzrost
-                    
+
                     if (Math.random() > correctChance || changes < minChanges / 2) {
                         // Losowa litera
                         const randomChar = possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
                         container.textContent = randomChar;
-                        
+
                         // Dodajemy efekt wibracji
                         container.style.transform = `translateY(${Math.random() * 2 - 1}px)`;
                     } else {
@@ -1857,7 +1857,7 @@ function slotMachineEffect(element, finalWord, duration = 2000) {
                         container.style.transform = 'translateY(0)';
                     }
                 }
-                
+
                 requestAnimationFrame(animate);
             } else {
                 // Po zakończeniu animacji ustawiamy prawidłową literę
@@ -1867,7 +1867,7 @@ function slotMachineEffect(element, finalWord, duration = 2000) {
                 container.style.textShadow = 'none';
             }
         }
-        
+
         // Opóźniamy start animacji dla każdej kolejnej litery
         setTimeout(() => {
             requestAnimationFrame(animate);
@@ -1899,7 +1899,7 @@ const DrawingStorage = {
         maxDrawings: 100,
         autoSaveInterval: 30000 // 30 sekund
     },
-    
+
     // Stan
     state: {
         drawings: new Map(),
@@ -1907,57 +1907,57 @@ const DrawingStorage = {
         autoSaveTimer: null,
         isSaving: false
     },
-    
+
     // Inicjalizacja
     init() {
         this.state.drawings.clear();
         this.state.lastSave = null;
         this.state.isSaving = false;
-        
+
         // Wczytanie zapisanych rysunków
         this.loadDrawings();
-        
+
         // Uruchomienie automatycznego zapisu
         this.startAutoSave();
     },
-    
+
     // Wczytywanie rysunków
     loadDrawings() {
         try {
             const savedData = localStorage.getItem(this.config.storageKey);
             if (!savedData) return;
-            
+
             const data = JSON.parse(savedData);
-            
+
             // Konwersja danych na Map
             this.state.drawings = new Map(Object.entries(data));
-            
+
             // Aktualizacja czasu ostatniego zapisu
             this.state.lastSave = new Date().toISOString();
-            
+
             return true;
         } catch (error) {
             ErrorHandler.handle(error, ErrorHandler.ErrorTypes.SYSTEM);
             return false;
         }
     },
-    
+
     // Zapisywanie rysunków
     async saveDrawings() {
         if (this.state.isSaving) return false;
-        
+
         try {
             this.state.isSaving = true;
-            
+
             // Konwersja Map na obiekt
             const data = Object.fromEntries(this.state.drawings);
-            
+
             // Zapisywanie do localStorage
             localStorage.setItem(this.config.storageKey, JSON.stringify(data));
-            
+
             // Aktualizacja czasu ostatniego zapisu
             this.state.lastSave = new Date().toISOString();
-            
+
             return true;
         } catch (error) {
             ErrorHandler.handle(error, ErrorHandler.ErrorTypes.SYSTEM);
@@ -1966,11 +1966,11 @@ const DrawingStorage = {
             this.state.isSaving = false;
         }
     },
-    
+
     // Zapisywanie pojedynczego rysunku
     saveDrawing(mapId, drawingData) {
         if (!mapId || !drawingData) return false;
-        
+
         try {
             // Dodanie metadanych
             const drawing = {
@@ -1978,24 +1978,24 @@ const DrawingStorage = {
                 updatedAt: new Date().toISOString(),
                 version: 1
             };
-            
+
             // Zapisywanie do Map
             this.state.drawings.set(mapId, drawing);
-            
+
             // Automatyczny zapis
             this.saveDrawings();
-            
+
             return true;
         } catch (error) {
             ErrorHandler.handle(error, ErrorHandler.ErrorTypes.SYSTEM);
             return false;
         }
     },
-    
+
     // Wczytywanie pojedynczego rysunku
     loadDrawing(mapId) {
         if (!mapId) return null;
-        
+
         try {
             return this.state.drawings.get(mapId);
         } catch (error) {
@@ -2003,11 +2003,11 @@ const DrawingStorage = {
             return null;
         }
     },
-    
+
     // Usuwanie rysunku
     deleteDrawing(mapId) {
         if (!mapId) return false;
-        
+
         try {
             this.state.drawings.delete(mapId);
             this.saveDrawings();
@@ -2017,18 +2017,18 @@ const DrawingStorage = {
             return false;
         }
     },
-    
+
     // Uruchomienie automatycznego zapisu
     startAutoSave() {
         if (this.state.autoSaveTimer) {
             clearInterval(this.state.autoSaveTimer);
         }
-        
+
         this.state.autoSaveTimer = setInterval(() => {
             this.saveDrawings();
         }, this.config.autoSaveInterval);
     },
-    
+
     // Zatrzymanie automatycznego zapisu
     stopAutoSave() {
         if (this.state.autoSaveTimer) {
@@ -2036,17 +2036,17 @@ const DrawingStorage = {
             this.state.autoSaveTimer = null;
         }
     },
-    
+
     // Pobieranie czasu ostatniego zapisu
     getLastSaveTime() {
         return this.state.lastSave;
     },
-    
+
     // Sprawdzanie czy rysunek istnieje
     hasDrawing(mapId) {
         return this.state.drawings.has(mapId);
     },
-    
+
     // Pobieranie listy rysunków
     getDrawingsList() {
         return Array.from(this.state.drawings.entries()).map(([id, drawing]) => ({
@@ -2056,7 +2056,7 @@ const DrawingStorage = {
             version: drawing.version
         }));
     },
-    
+
     // Czyszczenie wszystkich rysunków
     clearAll() {
         try {
@@ -2078,7 +2078,7 @@ const initMapEditorWithSave = async (mapId, mapData) => {
         if (!initMapEditor(mapId, mapData)) {
             return false;
         }
-        
+
         // Wczytanie zapisanego rysunku
         const savedDrawing = DrawingStorage.loadDrawing(mapId);
         if (savedDrawing) {
@@ -2086,11 +2086,11 @@ const initMapEditorWithSave = async (mapId, mapData) => {
             const drawingState = DrawingState.init();
             drawingState.shapes = savedDrawing.shapes || [];
             drawingState.undoStack = savedDrawing.undoStack || [];
-            
+
             // Przerysowanie canvasu
             redrawCanvas(drawingState);
         }
-        
+
         return true;
     } catch (error) {
         ErrorHandler.handle(error, ErrorHandler.ErrorTypes.RENDERING);
@@ -2101,14 +2101,14 @@ const initMapEditorWithSave = async (mapId, mapData) => {
 // Zapisywanie stanu rysowania
 const saveDrawingState = (mapId, drawingState) => {
     if (!mapId || !drawingState) return false;
-    
+
     try {
         const drawingData = {
             shapes: drawingState.shapes,
             undoStack: drawingState.undoStack,
             createdAt: new Date().toISOString()
         };
-        
+
         return DrawingStorage.saveDrawing(mapId, drawingData);
     } catch (error) {
         ErrorHandler.handle(error, ErrorHandler.ErrorTypes.SYSTEM);

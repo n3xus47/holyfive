@@ -20,6 +20,11 @@ const DEFAULT_PALETTE = {
   lineMain: "rgba(90, 90, 90, 0.5)",
   lineAccent: "rgba(120, 120, 120, 0.4)",
 };
+const HOME_PALETTE = {
+  bg: "#000000",
+  lineMain: "rgba(255, 255, 255, 0.5)",
+  lineAccent: "rgba(255, 255, 255, 0.85)",
+};
 const FACES_PALETTE = {
   bg: "#000000",
   lineMain: "rgba(255, 117, 31, 0.52)",
@@ -209,7 +214,7 @@ function getHomeMapWipeSide() {
 
 function getHomePerlinPalette() {
   /* Po golden hour od razu emerald — bez pośredniej szarej mapy przed faces-phase. */
-  return isFullpage && isHomeEmeraldPhase() ? FACES_PALETTE : DEFAULT_PALETTE;
+  return isFullpage ? HOME_PALETTE : DEFAULT_PALETTE;
 }
 
 function getMapWipeTargets(side) {
@@ -441,29 +446,6 @@ function animate(timestamp) {
 
   const overlayScale = readOverlayScale();
   maybeResizeForOverlayScale();
-
-  // Opening 221 zoom (~500×): hide live Perlin, do not stamp a freeze <img>.
-  // The snapshot is a tiny gray buffer; if CSS mask fails it covers the start photo.
-  if (isFullpage && overlayScale > DEEP_ZOOM_SKIP_PERLIN && !isHeroZoomSettled()) {
-    if (zoomFreezeActive) clearZoomFreezeSnapshot();
-    canvas.classList.add("is-zoom-frozen");
-    hasDrawnFrame = false;
-    animateRafId = requestAnimationFrame(animate);
-    return;
-  }
-
-  if (canvas.classList.contains("is-zoom-frozen") && !zoomFreezeActive) {
-    canvas.classList.remove("is-zoom-frozen");
-  }
-
-  // Until 221 zoom settles: live <canvas>+mask under GSAP scale tanks FPS.
-  // Snapshot to <img>, hide canvas, stop draw loop until settled.
-  if (isFullpage && hasDrawnFrame && !isHeroZoomSettled()) {
-    ensureZoomFreezeSnapshot();
-    bindZoomFreezePoll();
-    animateRafId = 0;
-    return;
-  }
 
   if (zoomFreezeActive) clearZoomFreezeSnapshot();
 

@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Holy Five — skład CS2 z 221. Pięć osób, jeden cel, zero filozofii. Gramy na Faceicie, wygrywamy cudami.">
+    <meta name="description" content="Holy Five — grupa znajomych grających razem w CS2 na FACEIT.">
     <link rel="stylesheet" href="/features/holyfive/holyfive.css">
     <link rel="stylesheet" href="/shared/css/view-transition.css">
+    <link rel="stylesheet" href="/shared/css/header.css">
     <link rel="icon" href="holyfive.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,32 +14,32 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Esteban&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    <title>Holy Five — skład CS2 | 221</title>    
-    <script defer src="/shared/scripts/refresh-redirect-to-pages-index.js"></script>
-    <script src="/shared/scripts/site-view-transition.js" defer></script>
+    <title>Holy Five — znajomi na FACEIT</title>
+    <script type="module" defer src="/shared/scripts/refresh-redirect-to-pages-index.js"></script>
+    <script type="module" src="/shared/scripts/site-view-transition.js" defer></script>
 </head>
 <body>
-    
+
     <div class="loading-container enter-transition" id="loadingScreen">
         <div class="loading-logo">
             <img src="hflogo5.webp" alt="LogoHF">
         </div>
         <div class="loading-label"><span class="blood-text">LOADING</span><span class="blood-dot">.</span><span class="blood-dot">.</span><span class="blood-dot">.</span></div>
     </div>
-    
+
     <div class="content hidden" id="pageContent">
         <div class="hf-home-v2__perlin-bg" aria-hidden="true">
             <canvas id="home-perlin-canvas"></canvas>
         </div>
         <div data-include="header"></div>
-        
+
         <main class="hf-home-v2">
             <section class="hf-home-v2__hero" aria-label="Ekran główny Holy Five" data-section-bg="#07090d">
                 <video id="hero-video" width="100%" height="100%" autoplay muted loop playsinline disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback nofullscreen" oncontextmenu="return false;" style="pointer-events: none;">
                     <source src="holyfive-hero-cinematic-1920x1080.mp4" type="video/mp4">
                 </video>
                 <div class="hf-home-v2__hero-overlay"></div>
-                <h1 class="hf-home-v2__hero-heading" data-i18n="heroHeading">Witajcie zwycięzcy</h1>
+                <h1 class="hf-home-v2__hero-heading" data-i18n="heroHeading">To prototyp strony nieesportowej drużyny 221, HOLY FIVE</h1>
                 <div class="hf-home-v2__hero-gallery"></div>
             </section>
 
@@ -49,8 +50,7 @@
                         <canvas id="bizon-canvas"></canvas>
                     </div>
                     <div class="hf-item-name hf-item-name--overlay">
-                        <h1 class="js-scroll-reveal-copy">5 ZAWODNIKÓW<br>
-Jeden cel. Zero kompromisów. Gramy z tej samej ławki od lat — wieczorami Faceit, tilt i śmiech. To nie agencja, to paczka.</h1>
+                        <h1 class="js-scroll-reveal-copy">GRUPA ZNAJOMYCH<br>Holy Five to nasza ekipa do grania w CS2. Zbieramy się na FACEIT, kiedy mamy czas na wspólny mecz.</h1>
                     </div>
                 </section>
 
@@ -60,8 +60,7 @@ Jeden cel. Zero kompromisów. Gramy z tej samej ławki od lat — wieczorami Fac
                         <canvas id="bizon-canvas-2"></canvas>
                     </div>
                     <div class="hf-item-name hf-item-name--overlay">
-                        <h1 class="js-scroll-reveal-copy">1 CEL<br>
-Wygrywamy cudami, bo w składzie mamy Jezusa. Nazwa wzięła się z przypadku — filozofii zero. Po prostu gramy.</h1>
+                        <h1 class="js-scroll-reveal-copy">WSPÓLNA GRA<br>Przed meczem zbieramy skład i wchodzimy na głosowy. W rundach podajemy informacje i ustalamy, co gramy.</h1>
                     </div>
                 </section>
 
@@ -71,8 +70,7 @@ Wygrywamy cudami, bo w składzie mamy Jezusa. Nazwa wzięła się z przypadku �
                         <canvas id="bizon-canvas-3"></canvas>
                     </div>
                     <div class="hf-item-name hf-item-name--overlay">
-                        <h1 class="js-scroll-reveal-copy">GŁÓD GRY 24/7<br>
-Im więcej ze sobą gramy, tym bardziej się cofamy. Cel? Maks level na Faceicie po każdym spotkaniu — i modlitwa.</h1>
+                        <h1 class="js-scroll-reveal-copy">NASZA STRONA<br>Tutaj sprawdzisz skład, profile FACEIT i statystyki graczy. W Akademii zbieramy mapy i wskazówki do wspólnej gry.</h1>
                     </div>
                 </section>
             </section>
@@ -80,7 +78,7 @@ Im więcej ze sobą gramy, tym bardziej się cofamy. Cel? Maks level na Faceicie
             <section class="hf-home-v2__sponsors-band" aria-label="Sponsorzy" data-section-bg="#07090d">
                 <canvas class="hf-home-v2__sponsors-band-canvas" aria-hidden="true"></canvas>
                 <div class="hf-home-v2__sponsors-band-texture" aria-hidden="true"></div>
-                <h2 class="hf-home-v2__sponsors-band-title" data-i18n="sponsorsTitle">Firmy, które jeszcze o nas nie słyszały (i całe szczęście).</h2>
+                <h2 class="hf-home-v2__sponsors-band-title" data-i18n="sponsorsTitle">Firmy, które na pewno nie mają z nami współpracy.</h2>
                 <div class="sponsors">
                     <div class="sponsor logo1"><img src="nike.svg" alt="Nike"></div>
                     <div class="sponsor logo2"><img src="toyota.svg" alt="Toyota"></div>
@@ -90,38 +88,33 @@ Im więcej ze sobą gramy, tym bardziej się cofamy. Cel? Maks level na Faceicie
                 </div>
             </section>
 
-            <section class="hf-home-v2__cards-screen" aria-label="Filary Holy Five" data-section-bg="#07090d">
+            <section class="hf-home-v2__cards-screen" aria-label="Nasze zasady" data-section-bg="#07090d">
                 <div class="hf-home-v2__cards-screen-inner">
-                    <div class="hf-home-v2__cards-screen-dewiza" aria-hidden="true">DEWIZA HOLY FIVE</div>
+                    <div class="hf-home-v2__cards-screen-dewiza" aria-hidden="true">NASZE ZASADY</div>
                     <div class="hf-home-v2__card-slot">
                         <div class="hf-home-v2__card-initial"><h2>2</h2></div>
                         <div class="hf-home-v2__card">
-                            <h3 data-i18n="card1Title">Tożsamość</h3>
-                            <p data-i18n="card1Desc">Pole na opis tego, czym jest Holy Five i jaka jest energia zespołu. Błogosławieństwo 221</p>
+                            <h3>BÓG</h3>
                         </div>
                     </div>
                     <div class="hf-home-v2__card-slot">
                         <div class="hf-home-v2__card-initial"><h2>2</h2></div>
                         <div class="hf-home-v2__card">
-                            <h3 data-i18n="card2Title">Korzenie</h3>
-                            <p data-i18n="card2Desc">Pole na narrację o genezie projektu i wspólnym DNA.</p>
+                            <h3>HONOR</h3>
                         </div>
                     </div>
                     <div class="hf-home-v2__card-slot">
                         <div class="hf-home-v2__card-initial"><h2>1</h2></div>
                         <div class="hf-home-v2__card">
-                            <h3 data-i18n="card3Title">Kierunek</h3>
-                            <p data-i18n="card3Desc">Pole pod plan i kierunek rozwoju.</p>
+                            <h3>OJCZYZNA</h3>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
-        
+
         <div data-include="footer"></div>
     </div>
-    
-    <div data-include="menu-overlay"></div>
 
     <svg viewBox="0 0 0 0" aria-hidden="true" style="position: fixed; left: -9999px; top: 0; width: 0; height: 0; overflow: hidden; clip: rect(0,0,0,0); pointer-events: none; z-index: -1; opacity: 0; visibility: hidden;">
       <defs>
@@ -137,9 +130,9 @@ Im więcej ze sobą gramy, tym bardziej się cofamy. Cel? Maks level na Faceicie
     <!-- SplitText i CustomEase (GSAP Club / 3.13+) – opcjonalne; poniżej używamy ręcznego podziału na słowa i ease power3.out -->
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-    <script src="include.js" defer></script>
-    <script src="/features/holyfive/holyfive.js"></script>
-    <script src="/features/holyfive/sponsors-band-reveal.js"></script>
+    <script type="module" src="include.js" defer></script>
+    <script type="module" src="/features/holyfive/holyfive.js"></script>
+    <script type="module" src="/features/holyfive/sponsors-band-reveal.js"></script>
     <script type="module" src="/features/holyfive/bizon-viewer.js"></script>
     <script type="module" src="/features/holyfive/academy-perlin-bg.js"></script>
     <script>

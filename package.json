@@ -2,13 +2,14 @@
   "name": "holyfive",
   "version": "1.0.0",
   "private": true,
-  "description": "Holy Five \u2014 strona sk\u0142adu CS2 (wydzielona z 221).",
+  "description": "Holy Five — strona składu CS2 (wydzielona z 221).",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "three": "0.160.1",
     "vite": "^6.3.5"
   },
   "type": "module"

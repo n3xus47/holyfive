@@ -1,8 +1,7 @@
 (function () {
     var PARTIALS = {
         'header': 'partials/header.html',
-        'footer': 'partials/footer.html',
-        'menu-overlay': 'partials/menu-overlay.html'
+        'footer': 'partials/footer.html'
     };
 
     function loadPartial(name) {

@@ -20,16 +20,16 @@ window.addEventListener('load', function() {
   setTimeout(function() {
       const loadingScreen = document.getElementById('loadingScreen');
       const pageContent = document.getElementById('pageContent');
-      
+
       loadingScreen.classList.add('hidden');
       pageContent.classList.remove('hidden');
-      
+
       // Wymuszenie reflowu i odświeżenie ScrollTrigger po pokazaniu treści (pełna szerokość przy pierwszym wczytaniu)
       void document.body.offsetHeight;
       if (typeof ScrollTrigger !== 'undefined') {
           ScrollTrigger.refresh();
       }
-      
+
       setTimeout(function() {
           loadingScreen.style.display = 'none';
       }, 400);
@@ -89,197 +89,9 @@ document.addEventListener('hfLayoutReady', function () {
   }, { passive: true });
 });
 
-/* Footer: efekt fizyki socjali (jak CODE(4)), najazd na logo przypina je, reszta spada i odbija (po wstawieniu partiali) */
-document.addEventListener('hfLayoutReady', function() {
-  var wrap = document.querySelector(".footer-social-physics-wrap");
-  var socialBlock = wrap ? wrap.querySelector(".social-icons") : null;
-  var links = socialBlock ? Array.prototype.slice.call(socialBlock.querySelectorAll(".menu-social-link")) : [];
-  if (!wrap || !links.length || typeof Matter === "undefined" || typeof gsap === "undefined") return;
-
-  var Engine = Matter.Engine, World = Matter.World, Bodies = Matter.Bodies, Body = Matter.Body;
-  var engine = null, tagElements = [], tagBodies = [], rafId = null, tagsContainer = null;
-  var isHovered = false, tagDropTimer = null, pinnedIndex = -1;
-  var pinnedLink = null, pinnedLeaveHandler = null;
-  var restoreTimeout = null; /* płynne ponowne pojawianie się przycisków */
-
-  function createTags(pinned) {
-    cleanupTags(true);
-    pinnedIndex = pinned;
-
-    /* Najpierw odczyt pozycji przy nienaruszonym layoutcie – bez przeskoku */
-    var wrapRect = wrap.getBoundingClientRect();
-    var cw = wrap.offsetWidth;
-    var ch = wrap.offsetHeight;
-    if (cw <= 0 || ch <= 0) return;
-
-    var tagSizes = [];
-    var linkRects = [];
-    for (var i = 0; i < links.length; i++) {
-      var r = links[i].getBoundingClientRect();
-      tagSizes.push({ width: r.width, height: r.height });
-      linkRects.push({
-        left: r.left - wrapRect.left,
-        top: r.top - wrapRect.top
-      });
-    }
-
-    /* Wybrana ikona zostaje oryginałem w DOM – tylko powiększenie i kolor, zero przeskoku */
-    wrap.classList.add('is-physics-active');
-    pinnedLink = links[pinnedIndex];
-    pinnedLink.classList.add('social-link-pinned');
-    pinnedLeaveHandler = function() {
-      isHovered = false;
-      if (tagDropTimer) tagDropTimer.kill();
-      tagDropTimer = null;
-      var visibleClones = tagElements.filter(Boolean);
-      if (visibleClones.length) {
-        gsap.to(visibleClones, { opacity: 0, duration: 0.25, ease: 'power2.out', onComplete: cleanupTags });
-      } else {
-        cleanupTags();
-      }
-    };
-    pinnedLink.addEventListener('mouseleave', pinnedLeaveHandler);
-
-    tagsContainer = document.createElement('div');
-    tagsContainer.className = 'social-physics-tags-container';
-    wrap.appendChild(tagsContainer);
-
-    engine = Engine.create({ gravity: { x: 0, y: 2 } });
-    var floorY = ch + 120;
-    var floor = Bodies.rectangle(cw / 2, floorY, cw * 3, 30, { isStatic: true });
-    World.add(engine.world, floor);
-
-    var fallDelayIndex = 0;
-    for (var j = 0; j < links.length; j++) {
-      if (j === pinnedIndex) {
-        tagElements.push(null);
-        tagBodies.push(null);
-        continue;
-      }
-      var linkClone = links[j].cloneNode(true);
-      linkClone.classList.add('social-physics-tag');
-      linkClone.setAttribute('aria-hidden', 'true');
-      tagsContainer.appendChild(linkClone);
-
-      var tw = tagSizes[j].width;
-      var th = tagSizes[j].height;
-      var startX = linkRects[j].left + tw / 2;
-      var startY = linkRects[j].top + th / 2;
-      var angle = (Math.random() - 0.5) * 0.4;
-      var body = Bodies.rectangle(startX, startY, tw, th, {
-        chamfer: { radius: Math.min(tw, th) / 2 },
-        restitution: 0.15,
-        friction: 0.6,
-        density: 0.002
-      });
-      Body.setAngle(body, angle);
-      World.add(engine.world, body);
-      tagElements.push(linkClone);
-      tagBodies.push(body);
-
-      gsap.to(linkClone, {
-        opacity: 1,
-        duration: 0.3,
-        delay: fallDelayIndex++ * 0.04,
-        ease: 'power2.out'
-      });
-    }
-
-    function update() {
-      if (!engine) return;
-      Engine.update(engine, 1000 / 60);
-      for (var k = 0; k < tagElements.length; k++) {
-        var el = tagElements[k];
-        if (!el) continue;
-        var body = tagBodies[k];
-        var w = tagSizes[k].width;
-        var h = tagSizes[k].height;
-        var startY = linkRects[k].top + h / 2;
-        var fallDistance = Math.max(0, body.position.y - startY);
-        var scale = Math.max(0.5, 1 - fallDistance * 0.0015);
-        el.style.transform = 'translate(' + (body.position.x - w / 2) + 'px, ' + (body.position.y - h / 2) + 'px) rotate(' + body.angle + 'rad) scale(' + scale + ')';
-      }
-      rafId = requestAnimationFrame(update);
-    }
-    rafId = requestAnimationFrame(update);
-  }
-
-  function finishRestore() {
-    if (restoreTimeout) clearTimeout(restoreTimeout);
-    restoreTimeout = null;
-    wrap.classList.remove('is-physics-restoring', 'is-physics-restored');
-    if (pinnedLink && pinnedLeaveHandler) {
-      pinnedLink.classList.remove('social-link-pinned');
-      pinnedLink.removeEventListener('mouseleave', pinnedLeaveHandler);
-      pinnedLink = null;
-      pinnedLeaveHandler = null;
-    }
-  }
-
-  function cleanupTags(immediate) {
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-    if (engine) {
-      Engine.clear(engine);
-      engine = null;
-    }
-    if (tagsContainer) {
-      tagsContainer.remove();
-      tagsContainer = null;
-    }
-    tagElements = [];
-    tagBodies = [];
-    if (restoreTimeout) clearTimeout(restoreTimeout);
-    restoreTimeout = null;
-    if (immediate) {
-      finishRestore();
-      wrap.classList.remove('is-physics-active');
-      return;
-    }
-    if (!wrap.classList.contains('is-physics-active')) return;
-    wrap.classList.add('is-physics-restoring');
-    wrap.classList.remove('is-physics-active');
-    requestAnimationFrame(function() {
-      wrap.classList.add('is-physics-restored');
-      restoreTimeout = setTimeout(finishRestore, 380);
-    });
-  }
-
-  links.forEach(function(link, index) {
-    link.addEventListener('mouseenter', function() {
-      isHovered = true;
-      if (tagDropTimer) tagDropTimer.kill();
-      tagDropTimer = gsap.delayedCall(0.45, function() {
-        if (isHovered) createTags(index);
-      });
-    });
-    link.addEventListener('mouseleave', function() {
-      if (tagDropTimer) tagDropTimer.kill();
-      tagDropTimer = null;
-    });
-  });
-
-  wrap.addEventListener('mouseleave', function() {
-    isHovered = false;
-    if (tagDropTimer) tagDropTimer.kill();
-    tagDropTimer = null;
-    var visibleClones = tagElements.filter(Boolean);
-    if (visibleClones.length) {
-      gsap.to(visibleClones, {
-        opacity: 0,
-        duration: 0.25,
-        ease: 'power2.out',
-        onComplete: cleanupTags
-      });
-    } else {
-      cleanupTags();
-    }
-  });
-});
-
 /* Płynna interpolacja tła body przy scrollu (sekcje z data-section-bg). Na stronie głównej z Perlin fullpage – stałe tło #0f0f0f. */
 document.addEventListener('DOMContentLoaded', function() {
-  import('/shared/scripts/sketch-frame-init.js').catch(function () {});
+
   var body = document.body;
   if (document.getElementById('home-perlin-canvas')) {
     body.style.backgroundColor = '#0f0f0f';
@@ -367,10 +179,12 @@ document.addEventListener('hfLayoutReady', function() {
         var node = childNodes[i];
         if (node.nodeType === 3) {
           var text = node.textContent;
-          var words = text.split(/\s+/).filter(function (w) { return w.length > 0; });
+          var words = text.match(/Holy Five[.,!?]?|najlepsza mapa[.,!?]?|\S+/gi) || [];
           for (var j = 0; j < words.length; j++) {
             var span = document.createElement('span');
             span.className = 'hf-hero-word';
+            if (/^(Holy Five|Nuke[.,!?]?$)/i.test(words[j])) span.classList.add('hf-hero-brand');
+            if (/^najlepsza mapa/i.test(words[j])) span.classList.add('hf-hero-phrase');
             span.textContent = words[j];
             fragment.appendChild(span);
             if (j < words.length - 1) fragment.appendChild(document.createTextNode(' '));
@@ -395,8 +209,8 @@ document.addEventListener('hfLayoutReady', function() {
     }
     window.applySmudgedHeading = applySmudgedHeading;
 
-    var initialHeadingText = heroHeading.dataset.defaultText || heroHeading.textContent || 'Witajcie zwycięzcy';
-    var initialCircleText = heroHeading.dataset.circleText || 'Nuke.<br>bezdyskusyjny wybór Holy Five';
+    var initialHeadingText = heroHeading.dataset.defaultText || heroHeading.textContent || 'To prototyp strony nieesportowej drużyny 221, HOLY FIVE';
+    var initialCircleText = heroHeading.dataset.circleText || 'Nuke to nasza najlepsza mapa.<br>Oddajemy jej hołd.';
     var HERO_CONFIG = {
       cardCount: 8,
       maxCardWidth: 0.4,
@@ -870,6 +684,9 @@ document.addEventListener('hfLayoutReady', function() {
       video.muted = true;
       video.setAttribute('playsinline', '');
       video.loop = false;
+      video.pause();
+      video.currentTime = 0;
+      let signatureComplete = false;
 
       var wrapper = video.parentElement;
       if (!wrapper || !wrapper.classList.contains('footer-video-wrapper')) {
@@ -881,10 +698,12 @@ document.addEventListener('hfLayoutReady', function() {
       }
 
       function tryStartVideo() {
-          if (!footer) return;
-          var rect = footer.getBoundingClientRect();
+          if (!footer || signatureComplete) return;
+          // Wait for the loading screen and the actual signature to enter view.
+          if (document.getElementById('pageContent')?.classList.contains('hidden')) return;
+          var rect = video.getBoundingClientRect();
           var h = window.innerHeight || document.documentElement.clientHeight;
-          var footerInView = rect.bottom > 0 && rect.top < h;
+          var footerInView = rect.height > 0 && rect.bottom > 0 && rect.top < h - Math.min(40, rect.height * 0.2);
           if (footerInView && video.paused && video.readyState >= 2) {
               video.playbackRate = 1;
               video.play().catch(function () {});
@@ -892,19 +711,8 @@ document.addEventListener('hfLayoutReady', function() {
       }
 
       video.addEventListener('ended', function () {
-          if (video.playbackRate >= 0) {
-              video.playbackRate = -1;
-              video.play().catch(function () {});
-          }
-      });
-
-      video.addEventListener('timeupdate', function () {
-          if (video.playbackRate < 0 && video.currentTime <= 0) {
-              video.pause();
-              video.currentTime = 0;
-              video.playbackRate = 1;
-              video.play().catch(function () {});
-          }
+          signatureComplete = true;
+          video.pause();
       });
 
       if (footer) {
@@ -914,11 +722,10 @@ document.addEventListener('hfLayoutReady', function() {
                       tryStartVideo();
                   } else {
                       video.pause();
-                      video.currentTime = 0;
                   }
               });
           }, { threshold: 0.05 });
-          observer.observe(footer);
+          observer.observe(video);
       }
 
       var tryStartThrottleMs = 120;
@@ -1143,37 +950,37 @@ function initCarousel(carousel) {
   const cards = carousel.querySelectorAll('.player-card');
   const cardsCount = cards.length;
   let currentIndex = 0;
-  
+
   // Funkcja układająca karty w okrąg 3D
   function arrangeCards() {
       const angleStep = 360 / cardsCount;
       const radius = 400 + (cardsCount * 20); // Zwiększony promień dla większej liczby kart
-      
+
       cards.forEach((card, index) => {
           // Oblicz pozycję kątową każdej karty
           const angle = ((index - currentIndex) * angleStep) % 360;
           const radian = angle * Math.PI / 180;
-          
+
           // Oblicz pozycję X i Z dla efektu 3D
           const x = radius * Math.sin(radian);
           const z = radius * Math.cos(radian) - radius;
-          
+
           // Oblicz skalę i przezroczystość
           const scale = Math.max(0.6, (1000 + z) / 1000);
           const opacity = Math.max(0.4, (1000 + z) / 1000);
-          
+
           // Zastosuj transformacje
           card.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${-angle}deg) scale(${scale})`;
           card.style.opacity = opacity;
           card.style.zIndex = Math.floor((1000 + z) / 10);
-          
+
           // Dodaj klasę active dla aktywnej karty
           if (index === currentIndex) {
               card.classList.add('active');
           } else {
               card.classList.remove('active');
           }
-          
+
           // Pokaż karty w zasięgu ±2 od aktualnej
           const angleDiff = Math.abs(angle) <= 180 ? Math.abs(angle) : 360 - Math.abs(angle);
           if (angleDiff <= angleStep * 2) {
@@ -1183,25 +990,25 @@ function initCarousel(carousel) {
           }
       });
   }
-  
+
   // Funkcja do przesunięcia karuzeli w lewo
   function moveLeft() {
       currentIndex = (currentIndex - 1 + cardsCount) % cardsCount;
       arrangeCards();
   }
-  
+
   // Funkcja do przesunięcia karuzeli w prawo
   function moveRight() {
       currentIndex = (currentIndex + 1) % cardsCount;
       arrangeCards();
   }
-  
+
   // Funkcja do przełączania na konkretną kartę
   function moveToCard(index) {
       currentIndex = index;
       arrangeCards();
   }
-  
+
   // Obsługa kliknięć na karty
   cards.forEach((card, index) => {
       card.addEventListener('click', function() {
@@ -1210,19 +1017,19 @@ function initCarousel(carousel) {
           }
       });
   });
-  
+
   // Inicjalizacja pozycji kart
   arrangeCards();
-  
+
   // Pobierz przyciski nawigacyjne
   const container = carousel.closest('.carousel-container');
   const leftArrow = container.querySelector('.carousel-arrow-left');
   const rightArrow = container.querySelector('.carousel-arrow-right');
-  
+
   // Dodaj obsługę kliknięć na strzałki
   if (leftArrow) leftArrow.addEventListener('click', moveLeft);
   if (rightArrow) rightArrow.addEventListener('click', moveRight);
-  
+
   // Obsługa klawiszy strzałek
   document.addEventListener('keydown', function(e) {
       if (carousel.closest('.section-content').style.display !== 'none') {
@@ -1301,18 +1108,18 @@ document.addEventListener("hfLayoutReady", function() {
             navHome: "Home",
             navPlayers: "Players",
             navAcademy: "Academy",
-            heroHeading: "Welcome, champions",
-            heroHeadingCircle: "Nuke.<br>the undisputed choice of Holy Five",
-            motto1: "5 PLAYERS",
-            motto2: "1 GOAL",
-            motto3: "HUNGER TO PLAY 24/7",
-            sponsorsTitle: "Companies that haven't heard of us yet (and that's just as well).",
-            card1Title: "Identity",
-            card1Desc: "We're a crew of friends from 221. Evenings mean Faceit, matches, and the right amount of tilt — no fake vibes, just the game.",
-            card2Title: "Roots",
-            card2Desc: "The project happened by accident; the name doesn't mean much. We've got Jesus on the roster — so we only win by miracles. That's the vibe.",
-            card3Title: "Direction",
-            card3Desc: "We only go backwards the more we play together — but we're still aiming for the highest Faceit level after every session. And a prayer.",
+            heroHeading: "This is a prototype website for a non-esports team from 221, HOLY FIVE",
+            heroHeadingCircle: "Nuke is our best map.<br>We pay tribute to it.",
+            motto1: "A GROUP OF FRIENDS",
+            motto2: "MATCHES TOGETHER",
+            motto3: "PLAYING FOR FUN",
+            sponsorsTitle: "Companies that definitely do not work with us.",
+            card1Title: "Who we are",
+            card1Desc: "Holy Five is a group of friends playing CS2 together on FACEIT.",
+            card2Title: "How we play",
+            card2Desc: "We get a group together, join voice chat and queue for matches.",
+            card3Title: "Why we play",
+            card3Desc: "For fun, evenings together and getting better at the game.",
             footerContact: "Contact",
             copyright: "221 © 2025"
         },
@@ -1323,18 +1130,18 @@ document.addEventListener("hfLayoutReady", function() {
             navHome: "Strona główna",
             navPlayers: "Zawodnicy",
             navAcademy: "Akademia",
-            heroHeading: "Witajcie zwycięzcy",
-            heroHeadingCircle: "Nuke.<br>bezdyskusyjny wybór Holy Five",
-            motto1: "5 ZAWODNIKÓW",
-            motto2: "1 CEL",
-            motto3: "GŁÓD GRY 24/7",
-            sponsorsTitle: "Firmy, które jeszcze o nas nie słyszały (i całe szczęście).",
-            card1Title: "Tożsamość",
-            card1Desc: "Jesteśmy paczką znajomych z 221. Wieczorami wbijamy na Faceita, gramy, denerwujemy się na pełnej — i nie udajemy kogoś innego. Tak się to kręci.",
-            card2Title: "Korzenie",
-            card2Desc: "Projekt zrodził się z przypadku, nazwa — bez ukrytej filozofii. W składzie mamy Jezusa, więc wygrywamy wyłącznie cudami. I tak trzymamy.",
-            card3Title: "Kierunek",
-            card3Desc: "W rozwoju tylko się cofamy, im więcej gramy ze sobą. Cel? Jak najwyższy level na Faceicie po każdym spotkaniu — i modlitwa.",
+            heroHeading: "To prototyp strony nieesportowej drużyny 221, HOLY FIVE",
+            heroHeadingCircle: "Nuke to nasza najlepsza mapa.<br>Oddajemy jej hołd.",
+            motto1: "GRUPA ZNAJOMYCH",
+            motto2: "WSPÓLNE MECZE",
+            motto3: "GRAMY DLA ZABAWY",
+            sponsorsTitle: "Firmy, które na pewno nie mają z nami współpracy.",
+            card1Title: "Kim jesteśmy",
+            card1Desc: "Holy Five to grupa znajomych, która gra razem w CS2 na FACEIT.",
+            card2Title: "Jak gramy",
+            card2Desc: "Zbieramy skład, wchodzimy na głosowy i gramy wspólne mecze.",
+            card3Title: "Po co gramy",
+            card3Desc: "Dla zabawy, wspólnych wieczorów i lepszej gry.",
             footerContact: "Kontakt",
             copyright: "221 © 2025"
         }
